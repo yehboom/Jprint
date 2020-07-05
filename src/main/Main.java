@@ -2,6 +2,7 @@ package main;
 
 import controller.IJPaintController;
 import controller.JPaintController;
+import controller.MyMouseListener;
 import model.persistence.ApplicationState;
 import view.gui.Gui;
 import view.gui.GuiWindow;
@@ -20,6 +21,8 @@ public class Main {
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
+
+        paintCanvas.addMouseListener(new MyMouseListener(paintCanvas));
 
         // For example purposes only; remove all lines below from your final project.
 
