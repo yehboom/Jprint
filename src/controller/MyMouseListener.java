@@ -1,21 +1,27 @@
 package controller;
 
 
+import model.CreateShapeCommand;
 import model.Point;
-import view.gui.PaintCanvas;
+import model.persistence.ShapeStore;
+import view.interfaces.ICommand;
 import view.interfaces.PaintCanvasBase;
 
-import java.awt.*;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class MyMouseListener extends MouseAdapter {
 
     private Point startPoint;
+    private Point endPoint;
     private PaintCanvasBase paintCanvas;
+    private ShapeStore shapeStore;
 
-    public MyMouseListener(PaintCanvasBase paintCanvas){
+
+    public MyMouseListener(PaintCanvasBase paintCanvas,ShapeStore shapeStore){
         this.paintCanvas=paintCanvas;
+        this.shapeStore=shapeStore;
     }
 
     @Override
@@ -25,26 +31,9 @@ public class MyMouseListener extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e){
-
-
-        // Filled in rectangle
-        Graphics2D graphics2d = paintCanvas.getGraphics2D();
-        graphics2d.setColor(Color.GREEN);
-
-        int width;
-        int height;
-
-        if(e.getX()<startPoint.getX() && e.getY()<startPoint.getY()){
-            width =startPoint.getX()- e.getX();
-            height = startPoint.getY()-e.getY();
-            graphics2d.fillRect(e.getX(), e.getY(), width, height);
-        }else {
-            width = e.getX()-startPoint.getX();
-            height = e.getY()-startPoint.getY();
-            graphics2d.fillRect(startPoint.getX(), startPoint.getY(), width, height);
-        }
-
-
+        endPoint=new Point(e.getX(),e.getY());
+        ICommand command=new CreateShapeCommand(startPoint,endPoint,shapeStore,paintCanvas);
+        command.run();
     }
 
 }
