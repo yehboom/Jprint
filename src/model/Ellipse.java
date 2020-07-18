@@ -8,6 +8,8 @@ public class Ellipse implements IShape {
     private Point endPoint;
     private int width;
     private int height;
+    private ShapeColor shapeColorPrimary;
+
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
     private ShapeColor activeSecondaryColor;
@@ -17,6 +19,10 @@ public class Ellipse implements IShape {
     //set default shape
     public Ellipse(){
 
+    }
+
+    public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
+        this.shapeColorPrimary=shapeColorPrimary;
     }
 
     public void setStartPoint(Point startPoint){
@@ -53,6 +59,10 @@ public class Ellipse implements IShape {
 
     public String toString(){
         return "Ellipse";
+    }
+
+    public ShapeColor getShapeColorPrimary(){
+        return shapeColorPrimary;
     }
 
 }

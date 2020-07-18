@@ -22,7 +22,6 @@ public class CreateShapeCommand implements ICommand {
 
 
 
-
     public CreateShapeCommand(Point startPoint, Point endPoint, ShapeStore store, PaintCanvasBase paintCanvas,ApplicationState appState) {
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -56,6 +55,9 @@ public class CreateShapeCommand implements ICommand {
         //create a shape
         newShape.setStartPoint(startPoint);
         newShape.setEndPoint(endPoint);
+
+        newShape.setShapeColorPrimary(appState.getActivePrimaryColor());
+
 
         int width;
         int height;

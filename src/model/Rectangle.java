@@ -8,6 +8,7 @@ public class Rectangle implements IShape {
     private Point endPoint;
     private int width;
     private int height;
+    private ShapeColor shapeColorPrimary;
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
     private ShapeColor activeSecondaryColor;
@@ -20,6 +21,9 @@ public class Rectangle implements IShape {
 
     }
 
+    public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
+        this.shapeColorPrimary=shapeColorPrimary;
+    }
 
     public void setStartPoint(Point startPoint){
         this.startPoint=startPoint;
@@ -55,6 +59,10 @@ public class Rectangle implements IShape {
 
     public String toString(){
         return "Rectangle";
+    }
+
+    public ShapeColor getShapeColorPrimary(){
+        return shapeColorPrimary;
     }
 
 }

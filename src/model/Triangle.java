@@ -7,6 +7,8 @@ public class Triangle implements IShape {
     private Point endPoint;
     private int width;
     private int height;
+    private ShapeColor shapeColorPrimary;
+
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
     private ShapeColor activeSecondaryColor;
@@ -16,6 +18,10 @@ public class Triangle implements IShape {
     //set default shape
     public Triangle(){
 
+    }
+
+    public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
+        this.shapeColorPrimary=shapeColorPrimary;
     }
 
     public void setStartPoint(Point startPoint){
@@ -52,6 +58,10 @@ public class Triangle implements IShape {
 
     public String toString(){
         return "Triangle";
+    }
+
+    public ShapeColor getShapeColorPrimary(){
+        return shapeColorPrimary;
     }
 
 }
