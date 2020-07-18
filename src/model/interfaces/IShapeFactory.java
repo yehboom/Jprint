@@ -1,5 +1,5 @@
 package model.interfaces;
 
 public interface IShapeFactory {
-    IShape createRectangle();
+    //IShape createRectangle();
 }

@@ -1,9 +1,8 @@
 package model;
 
 import model.interfaces.IShape;
-import model.interfaces.IStrategy;
 
-public class Rectangle implements IShape {
+public class Triangle implements IShape {
     private Point startPoint;
     private Point endPoint;
     private int width;
@@ -13,13 +12,11 @@ public class Rectangle implements IShape {
     private ShapeColor activeSecondaryColor;
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
-    private IStrategy iStrategy;
 
     //set default shape
-    public Rectangle(){
+    public Triangle(){
 
     }
-
 
     public void setStartPoint(Point startPoint){
         this.startPoint=startPoint;
@@ -54,7 +51,7 @@ public class Rectangle implements IShape {
     }
 
     public String toString(){
-        return "Rectangle";
+        return "Triangle";
     }
 
 }

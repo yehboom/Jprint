@@ -26,7 +26,7 @@ public class Main {
         //initial a shape store for later store the shape
         ShapeStore store=new ShapeStore();
         //add mouseListener to the canvas
-        paintCanvas.addMouseListener(new MyMouseListener(paintCanvas,store));
+        paintCanvas.addMouseListener(new MyMouseListener(paintCanvas,store,appState));
 
 
         // For example purposes only; remove all lines below from your final project.
