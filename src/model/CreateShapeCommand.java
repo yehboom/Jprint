@@ -55,8 +55,10 @@ public class CreateShapeCommand implements ICommand {
         //create a shape
         newShape.setStartPoint(startPoint);
         newShape.setEndPoint(endPoint);
-
         newShape.setShapeColorPrimary(appState.getActivePrimaryColor());
+        newShape.setShapeColorSecond(appState.getActiveSecondaryColor());
+        newShape.setShapeShadingType(appState.getActiveShapeShadingType());
+
 
 
         int width;

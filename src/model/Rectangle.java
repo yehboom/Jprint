@@ -9,16 +9,25 @@ public class Rectangle implements IShape {
     private int width;
     private int height;
     private ShapeColor shapeColorPrimary;
+    private ShapeColor shapeColorSecond;
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
     private ShapeColor activeSecondaryColor;
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
     private IStrategy iStrategy;
+    private ShapeShadingType shapeShadingType;
 
     //set default shape
     public Rectangle(){
 
+    }
+    public void setShapeShadingType(ShapeShadingType shapeShadingType){
+        this.shapeShadingType=shapeShadingType;
+    }
+
+    public void setShapeColorSecond(ShapeColor shapeColorSecond){
+        this.shapeColorSecond=shapeColorSecond;
     }
 
     public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
@@ -65,4 +74,11 @@ public class Rectangle implements IShape {
         return shapeColorPrimary;
     }
 
+    public ShapeColor getShapeColorSecond(){
+        return shapeColorSecond;
+    }
+
+    public ShapeShadingType getShapeShadingType(){
+        return this.shapeShadingType;
+    }
 }

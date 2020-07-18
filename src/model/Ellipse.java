@@ -9,6 +9,8 @@ public class Ellipse implements IShape {
     private int width;
     private int height;
     private ShapeColor shapeColorPrimary;
+    private ShapeColor shapeColorSecond;
+    private ShapeShadingType shapeShadingType;
 
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
@@ -19,6 +21,14 @@ public class Ellipse implements IShape {
     //set default shape
     public Ellipse(){
 
+    }
+    public void setShapeShadingType(ShapeShadingType shapeShadingType){
+        this.shapeShadingType=shapeShadingType;
+    }
+
+
+    public void setShapeColorSecond(ShapeColor shapeColorSecond){
+        this.shapeColorSecond=shapeColorSecond;
     }
 
     public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
@@ -63,6 +73,14 @@ public class Ellipse implements IShape {
 
     public ShapeColor getShapeColorPrimary(){
         return shapeColorPrimary;
+    }
+
+    public ShapeColor getShapeColorSecond(){
+        return shapeColorSecond;
+    }
+
+    public ShapeShadingType getShapeShadingType(){
+        return this.shapeShadingType;
     }
 
 }

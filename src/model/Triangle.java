@@ -8,7 +8,8 @@ public class Triangle implements IShape {
     private int width;
     private int height;
     private ShapeColor shapeColorPrimary;
-
+    private ShapeColor shapeColorSecond;
+    private ShapeShadingType shapeShadingType;
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
     private ShapeColor activeSecondaryColor;
@@ -19,6 +20,16 @@ public class Triangle implements IShape {
     public Triangle(){
 
     }
+
+    public void setShapeShadingType(ShapeShadingType shapeShadingType){
+        this.shapeShadingType=shapeShadingType;
+    }
+
+
+    public void setShapeColorSecond(ShapeColor shapeColorSecond){
+        this.shapeColorSecond=shapeColorSecond;
+    }
+
 
     public void setShapeColorPrimary(ShapeColor shapeColorPrimary){
         this.shapeColorPrimary=shapeColorPrimary;
@@ -63,5 +74,14 @@ public class Triangle implements IShape {
     public ShapeColor getShapeColorPrimary(){
         return shapeColorPrimary;
     }
+
+    public ShapeColor getShapeColorSecond(){
+        return shapeColorSecond;
+    }
+
+    public ShapeShadingType getShapeShadingType(){
+        return this.shapeShadingType;
+    }
+
 
 }
