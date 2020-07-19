@@ -5,6 +5,8 @@ import model.interfaces.IStrategy;
 
 import java.awt.*;
 
+import static model.ShapeShadingType.*;
+
 public class EllipseStrategy implements IStrategy {
     private Point startPoint;
     private IShape shape;
@@ -18,6 +20,28 @@ public class EllipseStrategy implements IStrategy {
     public void draw(Graphics2D g) {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint=shape.getStartPoint();
-        g.fillOval(startPoint.getX(),startPoint.getY(),shape.getWidth(),shape.getWidth());
+
+        if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
+            System.out.println("FILLED_IN");
+            g.fillOval(startPoint.getX(),startPoint.getY(),shape.getWidth(),shape.getWidth());
+
+        }else if(shape.getShapeShadingType().compareTo(OUTLINE)==0){
+            System.out.println("OUTLINE");
+            g.setStroke(new BasicStroke(5));
+            g.drawOval(startPoint.getX(),startPoint.getY(),shape.getWidth(),shape.getWidth());
+
+        }else if(shape.getShapeShadingType().compareTo(OUTLINE_AND_FILLED_IN)==0){
+            System.out.println("OUTLINE_AND_FILLED_IN");
+            g.setStroke(new BasicStroke(5));
+            g.fillOval(startPoint.getX(),startPoint.getY(),shape.getWidth(),shape.getWidth());
+            g.setColor(shape.getShapeColorSecond().getAwtColor());
+            g.drawOval(startPoint.getX(),startPoint.getY(),shape.getWidth(),shape.getWidth());
+
+
+        }
+
+
+
+
     }
 }
