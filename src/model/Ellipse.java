@@ -11,6 +11,7 @@ public class Ellipse implements IShape {
     private ShapeColor shapeColorPrimary;
     private ShapeColor shapeColorSecond;
     private ShapeShadingType shapeShadingType;
+    private boolean select;
 
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
@@ -20,7 +21,11 @@ public class Ellipse implements IShape {
 
     //set default shape
     public Ellipse(){
+        select = false;
+    }
 
+    public void setSelect(Boolean b) {
+        this.select = b;
     }
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
         this.shapeShadingType=shapeShadingType;
@@ -81,6 +86,10 @@ public class Ellipse implements IShape {
 
     public ShapeShadingType getShapeShadingType(){
         return this.shapeShadingType;
+    }
+
+    public boolean getSelect() {
+        return this.select;
     }
 
 }

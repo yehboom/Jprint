@@ -20,7 +20,7 @@ public class TriangleStrategy implements IStrategy {
 
     @Override
     public void draw(Graphics2D g) {
-        
+
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint=shape.getStartPoint();
         endPoint=shape.getEndPoint();

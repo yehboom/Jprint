@@ -7,6 +7,7 @@ public class Triangle implements IShape {
     private Point endPoint;
     private int width;
     private int height;
+    private boolean select;
     private ShapeColor shapeColorPrimary;
     private ShapeColor shapeColorSecond;
     private ShapeShadingType shapeShadingType;
@@ -18,8 +19,13 @@ public class Triangle implements IShape {
 
     //set default shape
     public Triangle(){
-
+        this.select = false;
     }
+
+    public void setSelect(Boolean b) {
+        this.select = b;
+    }
+
 
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
         this.shapeShadingType=shapeShadingType;
@@ -81,6 +87,10 @@ public class Triangle implements IShape {
 
     public ShapeShadingType getShapeShadingType(){
         return this.shapeShadingType;
+    }
+
+    public boolean getSelect() {
+        return this.select;
     }
 
 

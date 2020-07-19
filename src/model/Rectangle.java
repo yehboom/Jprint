@@ -8,6 +8,7 @@ public class Rectangle implements IShape {
     private Point endPoint;
     private int width;
     private int height;
+    private boolean select;
     private ShapeColor shapeColorPrimary;
     private ShapeColor shapeColorSecond;
     private ShapeType activeShapeType;
@@ -20,8 +21,13 @@ public class Rectangle implements IShape {
 
     //set default shape
     public Rectangle(){
-
+        this.select = false;
     }
+
+    public void setSelect(Boolean b) {
+        this.select = b;
+    }
+
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
         this.shapeShadingType=shapeShadingType;
     }
@@ -80,5 +86,9 @@ public class Rectangle implements IShape {
 
     public ShapeShadingType getShapeShadingType(){
         return this.shapeShadingType;
+    }
+
+    public boolean getSelect() {
+        return this.select;
     }
 }

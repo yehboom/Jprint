@@ -5,6 +5,7 @@ import model.ShapeColor;
 import model.ShapeShadingType;
 
 public interface IShape {
+    void setSelect(Boolean b);
     void setShapeShadingType(ShapeShadingType shapeShadingType);
     void setShapeColorSecond(ShapeColor shapeColor);
     void setShapeColorPrimary(ShapeColor shapeColor);
@@ -19,6 +20,8 @@ public interface IShape {
     ShapeShadingType getShapeShadingType();
     Point getStartPoint();
     Point getEndPoint();
+
+    boolean getSelect();
 
 
 
