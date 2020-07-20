@@ -4,7 +4,7 @@ import model.Point;
 import model.ShapeColor;
 import model.ShapeShadingType;
 
-public interface IShape {
+public interface IShape extends IObserver {
     void setSelect(Boolean b);
     void setShapeShadingType(ShapeShadingType shapeShadingType);
     void setShapeColorSecond(ShapeColor shapeColor);

@@ -2,6 +2,7 @@ package controller;
 
 
 import model.CreateShapeCommand;
+import model.MoveShapeCommand;
 import model.Point;
 import model.SelectShapeCommand;
 import model.interfaces.IObserver;
@@ -51,12 +52,11 @@ public class MyMouseListener extends MouseAdapter implements ISubject {
         } else if (appState.getActiveStartAndEndPointMode().compareTo(SELECT) == 0) {
             System.out.println("select mode");
             command = new SelectShapeCommand(startPoint, endPoint, shapeStore, paintCanvas, appState);
-
-
+            
         } else if (appState.getActiveStartAndEndPointMode().compareTo(MOVE) == 0) {
             System.out.println("Move mode");
+            command = new MoveShapeCommand(startPoint, endPoint, shapeStore, paintCanvas, appState);
         }
-
 
 
         command.run();

@@ -94,4 +94,9 @@ public class Triangle implements IShape {
     }
 
 
+    @Override
+    public void update() {
+        System.out.println("update");
+    }
+
 }

@@ -92,4 +92,8 @@ public class Ellipse implements IShape {
         return this.select;
     }
 
+    @Override
+    public void update() {
+        System.out.println("update");
+    }
 }

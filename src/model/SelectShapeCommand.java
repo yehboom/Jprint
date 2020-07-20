@@ -11,6 +11,7 @@ import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SelectShapeCommand implements ICommand, ISubject {
     private Point startPoint;
@@ -22,6 +23,8 @@ public class SelectShapeCommand implements ICommand, ISubject {
     private IStrategy strategy;
 
     private ArrayList<IShape> shapeList;
+
+    private List<IObserver> observers = new ArrayList<>();
 
 
     public SelectShapeCommand(Point startPoint, Point endPoint, ShapeStore store, PaintCanvasBase paintCanvas, ApplicationState appState) {
@@ -66,6 +69,10 @@ public class SelectShapeCommand implements ICommand, ISubject {
         //need to iteration the shape list and find collision
         //taking out the shape from the list
         for (IShape s : shapeList) {
+            //registerObserver
+            registerObserver(s);
+
+            //
             java.awt.Rectangle r2 = new java.awt.Rectangle();
             r2.setRect(s.getStartPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
             graphics2d.setColor(Color.RED);
@@ -100,12 +107,12 @@ public class SelectShapeCommand implements ICommand, ISubject {
 
     @Override
     public void registerObserver(IObserver observer) {
-
+        observers.add(observer);
     }
 
     @Override
     public void removeObserver(IObserver observer) {
-
+        observers.remove(observer);
     }
 
 }

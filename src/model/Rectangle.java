@@ -91,4 +91,9 @@ public class Rectangle implements IShape {
     public boolean getSelect() {
         return this.select;
     }
+
+    @Override
+    public void update() {
+        System.out.println("update");
+    }
 }
