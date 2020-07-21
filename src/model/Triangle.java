@@ -1,6 +1,10 @@
 package model;
 
+import model.interfaces.IObserver;
 import model.interfaces.IShape;
+import model.interfaces.IStrategy;
+
+import java.awt.*;
 
 public class Triangle implements IShape {
     private Point startPoint;
@@ -123,8 +127,10 @@ public class Triangle implements IShape {
 
 
     @Override
-    public void update() {
+    public void update(IObserver observer, Graphics2D g) {
         System.out.println("update");
+        IStrategy strategy = new TriangleStrategy((IShape) observer);
+        strategy.draw(g);
     }
 
 }

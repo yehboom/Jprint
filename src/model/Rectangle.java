@@ -1,7 +1,11 @@
 package model;
 
+import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
+import model.interfaces.RectangleStrategy;
+
+import java.awt.*;
 
 public class Rectangle implements IShape {
     private Point startPoint;
@@ -119,7 +123,9 @@ public class Rectangle implements IShape {
     }
 
     @Override
-    public void update() {
+    public void update(IObserver observer, Graphics2D g) {
         System.out.println("update");
+        IStrategy strategy = new RectangleStrategy((IShape) observer);
+        strategy.draw(g);
     }
 }

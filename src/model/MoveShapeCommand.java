@@ -40,14 +40,16 @@ public class MoveShapeCommand implements ICommand, ISubject {
         int moveX = endPoint.getX() - startPoint.getX();
         int moveY = endPoint.getY() - startPoint.getY();
 
+        for (IShape s1 : store.getShapeList()) {
+            registerObserver(s1);
+        }
+
 
         for (IShape s : store.getSelectShapeList()) {
             Point tempStartPoint = s.getStartPoint();
             Point tempEndPoint = s.getEndPoint();
-
             int tempStartPointX = tempStartPoint.getX() + moveX;
             int tempStartPointY = tempStartPoint.getY() + moveY;
-
             int tempEndPointX = tempEndPoint.getX() + moveX;
             int tempEndPointY = tempEndPoint.getY() + moveY;
 
@@ -60,19 +62,21 @@ public class MoveShapeCommand implements ICommand, ISubject {
         g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
 
 
-        for (IShape s1 : store.getShapeList()) {
-            if (s1.toString().equals("Ellipse")) {
-                strategy = new EllipseStrategy(s1);
-            } else if (s1.toString().equals("Triangle")) {
-                strategy = new TriangleStrategy(s1);
-            } else if (s1.toString().equals("Rectangle")) {
-                strategy = new RectangleStrategy(s1);
-            }
-            strategy.draw(g);
-        }
+//        for (IShape s1 : store.getShapeList()) {
+//            if (s1.toString().equals("Ellipse")) {
+//                strategy = new EllipseStrategy(s1);
+//            } else if (s1.toString().equals("Triangle")) {
+//                strategy = new TriangleStrategy(s1);
+//            } else if (s1.toString().equals("Rectangle")) {
+//                strategy = new RectangleStrategy(s1);
+//            }
+//            strategy.draw(g);
+//        }
+
+        notifyObservers(g);
 
 
-        store.cleanSelectShapeList();
+
     }
 
     @Override
@@ -83,5 +87,11 @@ public class MoveShapeCommand implements ICommand, ISubject {
     @Override
     public void removeObserver(IObserver observer) {
         observers.remove(observer);
+    }
+
+    private void notifyObservers(Graphics2D g) {
+        for (IObserver observer : observers) {
+            observer.update(observer, g);
+        }
     }
 }

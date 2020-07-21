@@ -33,6 +33,8 @@ public class SelectShapeCommand implements ICommand, ISubject {
         this.store = store;
         this.paintCanvas = paintCanvas;
         this.appState = appState;
+
+        store.cleanSelectShapeList();
     }
 
     @Override
@@ -87,9 +89,9 @@ public class SelectShapeCommand implements ICommand, ISubject {
             if (r.intersection(r2).height > 0 && r.intersection(r2).getWidth() > 0 ||
                     (startPoint.getX() < (r2.x + r2.width) && startPoint.getY() < (r2.y + r2.height) && startPoint.getX() > r2.x && startPoint.getY() > r2.y)) {
                 store.addSelectShape(s);
-                Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
-                graphics2d.setStroke(stroke);
-                graphics2d.draw(r2);
+//                Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//                graphics2d.setStroke(stroke);
+//                graphics2d.draw(r2);
 
             }
 

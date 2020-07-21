@@ -8,7 +8,7 @@ import java.awt.*;
 
 import static model.ShapeShadingType.*;
 
-public class EllipseStrategy implements IStrategy, IObserver {
+public class EllipseStrategy implements IStrategy {
     private Point startPoint;
     private IShape shape;
     private Point endPoint;
@@ -51,8 +51,5 @@ public class EllipseStrategy implements IStrategy, IObserver {
 
     }
 
-    @Override
-    public void update() {
-        shape.setSelect(true);
-    }
+
 }
