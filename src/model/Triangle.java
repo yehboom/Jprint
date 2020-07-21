@@ -114,7 +114,7 @@ public class Triangle implements IShape {
         return this.reverse;
     }
 
-  
+
     public boolean getSpecialDirection() {
         return this.specialDirection;
     }

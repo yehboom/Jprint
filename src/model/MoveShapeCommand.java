@@ -72,6 +72,7 @@ public class MoveShapeCommand implements ICommand, ISubject {
         }
 
 
+        store.cleanSelectShapeList();
     }
 
     @Override
