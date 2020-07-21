@@ -25,15 +25,6 @@ public class TriangleStrategy implements IStrategy {
         startPoint=shape.getStartPoint();
         endPoint=shape.getEndPoint();
 
-//        if(startPoint.getX()>endPoint.getX()&&startPoint.getY()<endPoint.getY()){
-//            System.out.println("Hi!!!!!!!!!!!!!!!!!!!!!");
-//            shape.setDirectionLeftToRight(true);
-//        }
-//
-//        if (startPoint.getX()<endPoint.getX()&&startPoint.getY()>endPoint.getY()){
-//            System.out.println("I am here2!!!!!!!!!");
-//            shape.setDirectionRightToLeft(true);
-//        }
 
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
             // System.out.println("FILLED_IN");

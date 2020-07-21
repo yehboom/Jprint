@@ -14,8 +14,7 @@ public class Ellipse implements IShape {
     private boolean select;
     private boolean reverse;
     private boolean specialDirection;
-    private boolean directionLeftToRight;
-    private boolean directionRightToLeft;
+
 
     private ShapeType activeShapeType;
     private ShapeColor activePrimaryColor;
@@ -33,15 +32,7 @@ public class Ellipse implements IShape {
         this.specialDirection = b;
     }
 
-    @Override
-    public void setDirectionLeftToRight(Boolean b) {
-        this.directionLeftToRight = b;
-    }
 
-    @Override
-    public void setDirectionRightToLeft(Boolean b) {
-        this.directionRightToLeft = b;
-    }
 
     public void setReverse(Boolean b) {
         this.reverse = b;
@@ -118,15 +109,6 @@ public class Ellipse implements IShape {
         return this.reverse;
     }
 
-    @Override
-    public boolean getDirectionLeftToRight() {
-        return this.directionLeftToRight;
-    }
-
-    @Override
-    public boolean getDirectionRightToLeft() {
-        return this.directionRightToLeft;
-    }
 
     public boolean getSpecialDirection() {
         return this.specialDirection;

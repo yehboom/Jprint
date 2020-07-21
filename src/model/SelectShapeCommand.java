@@ -40,10 +40,7 @@ public class SelectShapeCommand implements ICommand, ISubject {
     @Override
     public void run() {
 
-
         shapeList = store.getShapeList();
-        System.out.println("shapeListSize: " + shapeList.size());
-        System.out.println("selectShapeList Size" + store.getSelectShapeList().size());
 
         //this is mouse start point and end point
         java.awt.Rectangle r = new java.awt.Rectangle();
@@ -55,8 +52,6 @@ public class SelectShapeCommand implements ICommand, ISubject {
             //reverse direction
             width = startPoint.getX() - endPoint.getX();
             height = startPoint.getY() - endPoint.getY();
-
-
             r.setRect(endPoint.getX(), endPoint.getY(), width, height);
 
         } else {
@@ -79,7 +74,6 @@ public class SelectShapeCommand implements ICommand, ISubject {
 
             java.awt.Rectangle r2 = new java.awt.Rectangle();
 
-
             //fix for the triangle different direction
             if (s.getStartPoint().getX() > s.getEndPoint().getX() && s.getStartPoint().getY() < s.getEndPoint().getY()) {
                 r2.setRect(s.getEndPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
@@ -89,34 +83,19 @@ public class SelectShapeCommand implements ICommand, ISubject {
                 r2.setRect(s.getStartPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
             }
 
-            graphics2d.setColor(Color.RED);
-            graphics2d.draw(r2);
+
 
             //click and drag select
             if (r.intersection(r2).height > 0 && r.intersection(r2).getWidth() > 0 ||
                     (startPoint.getX() < (r2.x + r2.width) && startPoint.getY() < (r2.y + r2.height) && startPoint.getX() > r2.x && startPoint.getY() > r2.y)) {
-                System.out.println("intersection");
-                System.out.println("height: " + r.intersection(r2).height);
-
                 store.addSelectShape(s);
-                java.awt.Rectangle r3 = r.intersection(r2);
-                graphics2d.setColor(Color.GREEN);
-                graphics2d.draw(r3);
+//                Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+//                graphics2d.setStroke(stroke);
+//                graphics2d.draw(r2);
 
-
-            } else {
-                //System.out.println("Not intersection!!!!");
             }
 
         }
-
-
-//        //test
-//        java.awt.Rectangle r2=new java.awt.Rectangle();
-//        r2.setRect(startPoint.getX()+100, startPoint.getY()+100, 100, 100);
-
-
-        System.out.println("In select shape command");
 
     }
 

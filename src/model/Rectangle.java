@@ -11,8 +11,6 @@ public class Rectangle implements IShape {
     private boolean select;
     private boolean reverse;
     private boolean specialDirection;
-    private boolean directionLeftToRight;
-    private boolean directionRightToLeft;
 
 
     private ShapeColor shapeColorPrimary;
@@ -30,15 +28,7 @@ public class Rectangle implements IShape {
         this.select = false;
     }
 
-    @Override
-    public void setDirectionLeftToRight(Boolean b) {
-        this.directionLeftToRight = b;
-    }
 
-    @Override
-    public void setDirectionRightToLeft(Boolean b) {
-        this.directionRightToLeft = b;
-    }
 
     public void setReverse(Boolean b) {
         this.reverse = b;
@@ -121,15 +111,7 @@ public class Rectangle implements IShape {
         return this.reverse;
     }
 
-    @Override
-    public boolean getDirectionLeftToRight() {
-        return this.directionLeftToRight;
-    }
 
-    @Override
-    public boolean getDirectionRightToLeft() {
-        return this.directionRightToLeft;
-    }
 
     public boolean getSpecialDirection() {
         return this.specialDirection;

@@ -9,9 +9,10 @@ import static model.ShapeShadingType.*;
 
 public class RectangleStrategy implements IStrategy {
 
-
+    private Point endPoint;
     private Point startPoint;
     private IShape shape;
+
 
     public RectangleStrategy( IShape shape) {
         this.shape = shape;
@@ -22,6 +23,8 @@ public class RectangleStrategy implements IStrategy {
     public void draw(Graphics2D g) {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint=shape.getStartPoint();
+        endPoint = shape.getEndPoint();
+
 
 
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){

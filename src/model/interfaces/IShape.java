@@ -5,9 +5,7 @@ import model.ShapeColor;
 import model.ShapeShadingType;
 
 public interface IShape extends IObserver {
-    void setDirectionLeftToRight(Boolean b);
 
-    void setDirectionRightToLeft(Boolean b);
 
     void setReverse(Boolean b);
     void setSelect(Boolean b);
@@ -29,9 +27,6 @@ public interface IShape extends IObserver {
 
     boolean getReverse();
 
-    boolean getDirectionLeftToRight();
-
-    boolean getDirectionRightToLeft();
 
 
 }

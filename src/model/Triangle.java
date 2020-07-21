@@ -10,8 +10,7 @@ public class Triangle implements IShape {
     private boolean select;
     private boolean reverse;
     private boolean specialDirection;
-    private boolean directionLeftToRight;
-    private boolean directionRightToLeft;
+
 
 
     private ShapeColor shapeColorPrimary;
@@ -26,8 +25,7 @@ public class Triangle implements IShape {
     //set default shape
     public Triangle(){
         this.select = false;
-        this.directionLeftToRight = false;
-        this.directionRightToLeft = false;
+
 
     }
 
@@ -39,15 +37,7 @@ public class Triangle implements IShape {
         this.select = b;
     }
 
-    @Override
-    public void setDirectionLeftToRight(Boolean b) {
-        this.directionLeftToRight = b;
-    }
 
-    @Override
-    public void setDirectionRightToLeft(Boolean b) {
-        this.directionRightToLeft = b;
-    }
 
     public void setReverse(Boolean b) {
         this.reverse = b;
@@ -124,16 +114,7 @@ public class Triangle implements IShape {
         return this.reverse;
     }
 
-    @Override
-    public boolean getDirectionLeftToRight() {
-        return this.directionLeftToRight;
-    }
-
-    @Override
-    public boolean getDirectionRightToLeft() {
-        return this.directionRightToLeft;
-    }
-
+  
     public boolean getSpecialDirection() {
         return this.specialDirection;
     }

@@ -11,6 +11,7 @@ import static model.ShapeShadingType.*;
 public class EllipseStrategy implements IStrategy, IObserver {
     private Point startPoint;
     private IShape shape;
+    private Point endPoint;
 
     public EllipseStrategy( IShape shape) {
         this.shape = shape;
@@ -22,6 +23,9 @@ public class EllipseStrategy implements IStrategy, IObserver {
 
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint=shape.getStartPoint();
+        endPoint = shape.getEndPoint();
+
+
 
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
             System.out.println("FILLED_IN");

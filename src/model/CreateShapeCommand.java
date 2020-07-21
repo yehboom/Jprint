@@ -52,6 +52,7 @@ public class CreateShapeCommand implements ICommand {
 
         }
 
+
         //create a shape
         newShape.setStartPoint(startPoint);
         newShape.setEndPoint(endPoint);
@@ -68,13 +69,23 @@ public class CreateShapeCommand implements ICommand {
             //reverse direction
             width = Math.abs(startPoint.getX() - endPoint.getX());
             height = Math.abs(startPoint.getY() - endPoint.getY());
-
             newShape.setStartPoint(endPoint);
             newShape.setEndPoint(startPoint);
             newShape.setReverse(true);
-        }else {
+        } else {
             width = Math.abs(endPoint.getX() - startPoint.getX());
             height = Math.abs(endPoint.getY() - startPoint.getY());
+        }
+
+        //(Ellipse and Rectangle) left to right and right to left direction
+        if (appState.getActiveShapeType().compareTo(TRIANGLE) != 0) {
+            if (startPoint.getX() > endPoint.getX() && startPoint.getY() < endPoint.getY()) {
+                startPoint = new Point(endPoint.getX(), startPoint.getY());
+                newShape.setStartPoint(startPoint);
+            } else if (startPoint.getX() < endPoint.getX() && startPoint.getY() > endPoint.getY()) {
+                startPoint = new Point(startPoint.getX(), endPoint.getY());
+                newShape.setStartPoint(startPoint);
+            }
         }
 
         newShape.setWidth(width);
@@ -89,7 +100,6 @@ public class CreateShapeCommand implements ICommand {
         switch (appState.getActiveShapeType()){
             case RECTANGLE:
                 this.strategy=new RectangleStrategy(newShape);
-                System.out.println("In Rectangle"+newShape.getHeight());
                 break;
             case ELLIPSE:
                 this.strategy=new EllipseStrategy(newShape);
