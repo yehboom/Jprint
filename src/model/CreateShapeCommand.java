@@ -66,13 +66,15 @@ public class CreateShapeCommand implements ICommand {
 
         if(endPoint.getX()<startPoint.getX() && endPoint.getY()<startPoint.getY()){
             //reverse direction
-            width =startPoint.getX()- endPoint.getX();
-            height = startPoint.getY()-endPoint.getY();
+            width = Math.abs(startPoint.getX() - endPoint.getX());
+            height = Math.abs(startPoint.getY() - endPoint.getY());
+
             newShape.setStartPoint(endPoint);
             newShape.setEndPoint(startPoint);
+            newShape.setReverse(true);
         }else {
-            width = endPoint.getX()-startPoint.getX();
-            height = endPoint.getY()-startPoint.getY();
+            width = Math.abs(endPoint.getX() - startPoint.getX());
+            height = Math.abs(endPoint.getY() - startPoint.getY());
         }
 
         newShape.setWidth(width);

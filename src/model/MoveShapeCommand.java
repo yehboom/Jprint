@@ -1,9 +1,6 @@
 package model;
 
-import model.interfaces.IObserver;
-import model.interfaces.IShape;
-import model.interfaces.IStrategy;
-import model.interfaces.ISubject;
+import model.interfaces.*;
 import model.persistence.ApplicationState;
 import model.persistence.ShapeStore;
 import view.interfaces.ICommand;
@@ -43,24 +40,37 @@ public class MoveShapeCommand implements ICommand, ISubject {
         int moveX = endPoint.getX() - startPoint.getX();
         int moveY = endPoint.getY() - startPoint.getY();
 
+
         for (IShape s : store.getSelectShapeList()) {
             Point tempStartPoint = s.getStartPoint();
             Point tempEndPoint = s.getEndPoint();
 
-            int tempStartPonintX = tempStartPoint.getX() + moveX;
+            int tempStartPointX = tempStartPoint.getX() + moveX;
             int tempStartPointY = tempStartPoint.getY() + moveY;
 
             int tempEndPointX = tempEndPoint.getX() + moveX;
             int tempEndPointY = tempEndPoint.getY() + moveY;
 
-            s.setStartPoint(new Point(tempStartPonintX, tempStartPointY));
+            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
             s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
 
-            g.setColor(Color.GREEN);
-            g.fillRect(s.getStartPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
-
-
         }
+        g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+        g.setColor(Color.white);
+        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
+
+        for (IShape s1 : store.getShapeList()) {
+            if (s1.toString().equals("Ellipse")) {
+                strategy = new EllipseStrategy(s1);
+            } else if (s1.toString().equals("Triangle")) {
+                strategy = new TriangleStrategy(s1);
+            } else if (s1.toString().equals("Rectangle")) {
+                strategy = new RectangleStrategy(s1);
+            }
+            strategy.draw(g);
+        }
+
 
     }
 

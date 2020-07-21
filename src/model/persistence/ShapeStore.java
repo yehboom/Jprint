@@ -32,4 +32,8 @@ public class ShapeStore {
         return this.selectShapeList;
     }
 
+    public void cleanSelectShapeList() {
+        this.selectShapeList = new ArrayList<>();
+    }
+
 }

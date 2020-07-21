@@ -33,12 +33,17 @@ public class SelectShapeCommand implements ICommand, ISubject {
         this.store = store;
         this.paintCanvas = paintCanvas;
         this.appState = appState;
-        shapeList = store.getShapeList();
+        store.cleanSelectShapeList();
+
     }
 
     @Override
     public void run() {
 
+
+        shapeList = store.getShapeList();
+        System.out.println("shapeListSize: " + shapeList.size());
+        System.out.println("selectShapeList Size" + store.getSelectShapeList().size());
 
         //this is mouse start point and end point
         java.awt.Rectangle r = new java.awt.Rectangle();
@@ -51,8 +56,7 @@ public class SelectShapeCommand implements ICommand, ISubject {
             width = startPoint.getX() - endPoint.getX();
             height = startPoint.getY() - endPoint.getY();
 
-            // newShape.setStartPoint(endPoint);
-            // newShape.setEndPoint(startPoint);
+
             r.setRect(endPoint.getX(), endPoint.getY(), width, height);
 
         } else {
@@ -68,18 +72,29 @@ public class SelectShapeCommand implements ICommand, ISubject {
 
         //need to iteration the shape list and find collision
         //taking out the shape from the list
+
         for (IShape s : shapeList) {
             //registerObserver
             registerObserver(s);
 
-            //
             java.awt.Rectangle r2 = new java.awt.Rectangle();
-            r2.setRect(s.getStartPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
+
+
+            //fix for the triangle different direction
+            if (s.getStartPoint().getX() > s.getEndPoint().getX() && s.getStartPoint().getY() < s.getEndPoint().getY()) {
+                r2.setRect(s.getEndPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
+            } else if (s.getStartPoint().getX() < s.getEndPoint().getX() && s.getStartPoint().getY() > s.getEndPoint().getY()) {
+                r2.setRect(s.getStartPoint().getX(), s.getEndPoint().getY(), s.getWidth(), s.getHeight());
+            } else {
+                r2.setRect(s.getStartPoint().getX(), s.getStartPoint().getY(), s.getWidth(), s.getHeight());
+            }
+
             graphics2d.setColor(Color.RED);
             graphics2d.draw(r2);
 
-
-            if (r.intersection(r2).height > 0 && r.intersection(r2).getWidth() > 0) {
+            //click and drag select
+            if (r.intersection(r2).height > 0 && r.intersection(r2).getWidth() > 0 ||
+                    (startPoint.getX() < (r2.x + r2.width) && startPoint.getY() < (r2.y + r2.height) && startPoint.getX() > r2.x && startPoint.getY() > r2.y)) {
                 System.out.println("intersection");
                 System.out.println("height: " + r.intersection(r2).height);
 
@@ -90,7 +105,7 @@ public class SelectShapeCommand implements ICommand, ISubject {
 
 
             } else {
-                System.out.println("Not intersection!!!!");
+                //System.out.println("Not intersection!!!!");
             }
 
         }

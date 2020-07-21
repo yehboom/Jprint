@@ -25,18 +25,28 @@ public class TriangleStrategy implements IStrategy {
         startPoint=shape.getStartPoint();
         endPoint=shape.getEndPoint();
 
+//        if(startPoint.getX()>endPoint.getX()&&startPoint.getY()<endPoint.getY()){
+//            System.out.println("Hi!!!!!!!!!!!!!!!!!!!!!");
+//            shape.setDirectionLeftToRight(true);
+//        }
+//
+//        if (startPoint.getX()<endPoint.getX()&&startPoint.getY()>endPoint.getY()){
+//            System.out.println("I am here2!!!!!!!!!");
+//            shape.setDirectionRightToLeft(true);
+//        }
+
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
-            System.out.println("FILLED_IN");
+            // System.out.println("FILLED_IN");
             g.fillPolygon(new int[] {startPoint.getX(), endPoint.getX(), startPoint.getX()}, new int[] {startPoint.getY(), endPoint.getY(),  endPoint.getY()}, 3);
 
         }else if(shape.getShapeShadingType().compareTo(OUTLINE)==0){
-            System.out.println("OUTLINE");
+            //System.out.println("OUTLINE");
             g.setStroke(new BasicStroke(5));
             g.drawPolygon(new int[] {startPoint.getX(), endPoint.getX(), startPoint.getX()}, new int[] {startPoint.getY(), endPoint.getY(),  endPoint.getY()}, 3);
 
 
         }else if(shape.getShapeShadingType().compareTo(OUTLINE_AND_FILLED_IN)==0){
-            System.out.println("OUTLINE_AND_FILLED_IN");
+            //System.out.println("OUTLINE_AND_FILLED_IN");
             g.setStroke(new BasicStroke(5));
             g.fillPolygon(new int[] {startPoint.getX(), endPoint.getX(), startPoint.getX()}, new int[] {startPoint.getY(), endPoint.getY(),  endPoint.getY()}, 3);
 
