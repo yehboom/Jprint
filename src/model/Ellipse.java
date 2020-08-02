@@ -18,6 +18,7 @@ public class Ellipse implements IShape {
     private boolean select;
     private boolean reverse;
     private int copyCount = 0;
+    private int shapeType;
 
 
 
@@ -29,7 +30,9 @@ public class Ellipse implements IShape {
 
     //set default shape
     public Ellipse(){
-        select = false;
+        this.select = false;
+        this.shapeType = 0;
+
     }
 
     public void setReverse(Boolean b) {
@@ -40,6 +43,10 @@ public class Ellipse implements IShape {
     }
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
         this.shapeShadingType=shapeShadingType;
+    }
+
+    public void setShapeType(int i) {
+        this.shapeType = i;
     }
 
 
@@ -117,6 +124,10 @@ public class Ellipse implements IShape {
 
     public boolean getReverse() {
         return this.reverse;
+    }
+
+    public int getShapeType() {
+        return this.shapeType;
     }
 
 

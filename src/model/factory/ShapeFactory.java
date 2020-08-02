@@ -1,6 +1,7 @@
 package model.factory;
 
 import model.Ellipse;
+import model.NullShape;
 import model.Rectangle;
 import model.Triangle;
 import model.interfaces.IShape;
@@ -17,4 +18,9 @@ public class ShapeFactory implements IShapeFactory {
     public IShape createEllipse(){
         return new Ellipse();
     }
+
+    public IShape createNullShape() {
+        return new NullShape();
+    }
+
 }

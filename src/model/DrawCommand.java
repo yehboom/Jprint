@@ -18,7 +18,7 @@ public class DrawCommand implements ICommand {
 
     //constructor
     DrawCommand(IStrategy Strategy, PaintCanvasBase paintCanvas){
-        //this.shape=shape;
+
         this.strategy=Strategy;
         this.paintCanvas=paintCanvas;
     }

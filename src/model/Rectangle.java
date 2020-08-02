@@ -16,6 +16,8 @@ public class Rectangle implements IShape {
     private boolean specialDirection;
     private int copyCount;
 
+    private int shapeType;
+
 
     private ShapeColor shapeColorPrimary;
     private ShapeColor shapeColorSecond;
@@ -30,6 +32,7 @@ public class Rectangle implements IShape {
     //set default shape
     public Rectangle(){
         this.select = false;
+        this.shapeType = 0;
     }
 
 
@@ -40,6 +43,10 @@ public class Rectangle implements IShape {
 
     public void setSelect(Boolean b) {
         this.select = b;
+    }
+
+    public void setShapeType(int i) {
+        this.shapeType = i;
     }
 
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
@@ -116,6 +123,10 @@ public class Rectangle implements IShape {
         } else {
             copyCount++;
         }
+    }
+
+    public int getShapeType() {
+        return this.shapeType;
     }
 
     public int getCopyCount() {

@@ -48,6 +48,8 @@ public class CreateShapeCommand implements ICommand {
             //get shape from shapeFactory
             newShape=shapeFactory.createEllipse();
 
+        } else {
+            newShape = shapeFactory.createNullShape();
         }
 
 
@@ -62,6 +64,8 @@ public class CreateShapeCommand implements ICommand {
 
         int width;
         int height;
+        width = Math.abs(endPoint.getX() - startPoint.getX());
+        height = Math.abs(endPoint.getY() - startPoint.getY());
 
         if(endPoint.getX()<startPoint.getX() && endPoint.getY()<startPoint.getY()){
             //reverse direction
@@ -70,16 +74,23 @@ public class CreateShapeCommand implements ICommand {
             newShape.setStartPoint(endPoint);
             newShape.setEndPoint(startPoint);
             newShape.setReverse(true);
+
+            //deal with different direction troangle
+        } else if (endPoint.getX() > startPoint.getX() && endPoint.getY() < startPoint.getY()) {
+            newShape.setShapeType(1);
+        } else if (endPoint.getX() < startPoint.getX() && endPoint.getY() > startPoint.getY()) {
+            newShape.setShapeType(2);
         } else {
-            width = Math.abs(endPoint.getX() - startPoint.getX());
-            height = Math.abs(endPoint.getY() - startPoint.getY());
+            System.out.println("Normal");
         }
+
 
         //(Ellipse and Rectangle) left to right and right to left direction
         if (appState.getActiveShapeType().compareTo(TRIANGLE) != 0) {
             if (startPoint.getX() > endPoint.getX() && startPoint.getY() < endPoint.getY()) {
                 startPoint = new Point(endPoint.getX(), startPoint.getY());
                 newShape.setStartPoint(startPoint);
+                // System.out.println("333Reverse!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             } else if (startPoint.getX() < endPoint.getX() && startPoint.getY() > endPoint.getY()) {
                 startPoint = new Point(startPoint.getX(), endPoint.getY());
                 newShape.setStartPoint(startPoint);
@@ -104,6 +115,10 @@ public class CreateShapeCommand implements ICommand {
                 break;
             case TRIANGLE:
                 this.strategy=new TriangleStrategy(newShape);
+                break;
+            default:
+                System.out.println("Invalid shape selected :" + appState.getActiveShapeType());
+                this.strategy = new NullShapeStrategy(newShape);
                 break;
         }
 

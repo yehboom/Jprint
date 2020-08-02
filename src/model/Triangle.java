@@ -14,6 +14,7 @@ public class Triangle implements IShape {
     private boolean select;
     private boolean reverse;
     private int copyCount;
+    private int shapeType;
 
 
     private ShapeColor shapeColorPrimary;
@@ -28,6 +29,7 @@ public class Triangle implements IShape {
     //set default shape
     public Triangle(){
         this.select = false;
+        this.shapeType = 0;
     }
 
 
@@ -35,7 +37,9 @@ public class Triangle implements IShape {
         this.select = b;
     }
 
-
+    public void setShapeType(int i) {
+        this.shapeType = i;
+    }
 
     public void setReverse(Boolean b) {
         this.reverse = b;
@@ -112,6 +116,10 @@ public class Triangle implements IShape {
         return this.reverse;
     }
 
+    public int getShapeType() {
+        return this.shapeType;
+    }
+
     public void setCopyCount() {
         if (copyCount != 0) {
             this.copyCount += 50;
@@ -127,7 +135,7 @@ public class Triangle implements IShape {
 
     @Override
     public void update(IObserver observer, Graphics2D g) {
-        System.out.println("update");
+        // System.out.println("update");
         IStrategy strategy = new TriangleStrategy((IShape) observer);
         strategy.draw(g);
     }

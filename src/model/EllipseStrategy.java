@@ -43,11 +43,19 @@ public class EllipseStrategy implements IStrategy {
             g.setColor(shape.getShapeColorSecond().getAwtColor());
             g.drawOval(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
 
+        }
+        drawSelect(g);
+    }
+
+    @Override
+    public void drawSelect(Graphics2D g) {
+
+        if (shape.getSelect()) {
+            g.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0));
+            g.setColor(Color.MAGENTA);
+            g.drawOval(shape.getStartPoint().getX() - 5, shape.getStartPoint().getY() - 5, shape.getWidth() + 10, shape.getHeight() + 10);
 
         }
-
-
-
 
     }
 

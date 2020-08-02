@@ -33,10 +33,11 @@ public class ApplicationState implements IApplicationState, Serializable {
 
 
     public ApplicationState(IUiModule uiModule, PaintCanvasBase paintCanvas, ShapeStore store) {
-        this.uiModule = uiModule;
-        this.dialogProvider = new DialogProvider(this);
         this.paintCanvas = paintCanvas;
         this.store = store;
+        this.uiModule = uiModule;
+
+        this.dialogProvider = new DialogProvider(this);
         setDefaults();
         g = paintCanvas.getGraphics2D();
     }
@@ -48,7 +49,9 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public void setDelete() {
         List<IShape> allList = store.getShapeList();
-
+        if (allList.size() == 0) {
+            return;
+        }
         for (IShape s : selectList) {
             allList.remove(s);
         }
@@ -65,10 +68,13 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public void setPaste() {
         System.out.println("Paste");
-        ShapeFactory shapeFactory = new ShapeFactory();
-        //need to revise here
-        IShape newShape = shapeFactory.createEllipse();
 
+        if (copyList == null) {
+            return;
+        }
+
+        ShapeFactory shapeFactory = new ShapeFactory();
+        IShape newShape;
         for (IShape i : copyList) {
 
             Point pointStart = i.getStartPoint();
@@ -76,12 +82,15 @@ public class ApplicationState implements IApplicationState, Serializable {
             String type = i.toString();
             i.setCopyCount();
 
+
             if (type.equals("Triangle")) {
                 newShape = shapeFactory.createTriangle();
             } else if (type.equals("Ellipse")) {
                 newShape = shapeFactory.createEllipse();
             } else if (type.equals("Rectangle")) {
                 newShape = shapeFactory.createRectangle();
+            } else {
+                newShape = shapeFactory.createNullShape();
             }
 
 

@@ -16,7 +16,7 @@ public class RectangleStrategy implements IStrategy {
     private IShape shape;
 
 
-    public RectangleStrategy( IShape shape) {
+    public RectangleStrategy(IShape shape) {
         this.shape = shape;
     }
 
@@ -26,8 +26,6 @@ public class RectangleStrategy implements IStrategy {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint=shape.getStartPoint();
         endPoint = shape.getEndPoint();
-
-
 
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
             // System.out.println("FILLED_IN");
@@ -46,10 +44,18 @@ public class RectangleStrategy implements IStrategy {
             g.setColor(shape.getShapeColorSecond().getAwtColor());
             g.drawRect(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
 
+        }
+        drawSelect(g);
+    }
 
+    @Override
+    public void drawSelect(Graphics2D g) {
+        if (shape.getSelect()) {
+            g.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0));
+            g.setColor(Color.MAGENTA);
+            g.drawRect(startPoint.getX() - 5, startPoint.getY() - 5, shape.getWidth() + 10, shape.getHeight() + 10);
         }
 
-
-
     }
+
 }

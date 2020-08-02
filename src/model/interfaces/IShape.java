@@ -17,6 +17,9 @@ public interface IShape extends IObserver {
     void setWidth(int width);
     void setHeight(int height);
 
+    void setShapeType(int i);
+
+
     void setCopyCount();
     int getWidth();
     int getHeight();
@@ -30,6 +33,8 @@ public interface IShape extends IObserver {
     int getCopyCount();
 
     boolean getReverse();
+
+    int getShapeType();
 
 
 

@@ -13,6 +13,7 @@ public class TriangleStrategy implements IStrategy {
     private IShape shape;
     private Point endPoint;
 
+
     public TriangleStrategy( IShape shape) {
         this.shape = shape;
     }
@@ -45,8 +46,29 @@ public class TriangleStrategy implements IStrategy {
             g.drawPolygon(new int[] {startPoint.getX(), endPoint.getX(), startPoint.getX()}, new int[] {startPoint.getY(), endPoint.getY(),  endPoint.getY()}, 3);
 
         }
+        drawSelect(g);
 
+    }
 
+    @Override
+    public void drawSelect(Graphics2D g) {
+
+        if (shape.getSelect()) {
+            g.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0));
+            g.setColor(Color.MAGENTA);
+
+            if (shape.getShapeType() == 0) {
+                g.drawPolygon(new int[]{shape.getStartPoint().getX() - 5, shape.getEndPoint().getX() + 20, shape.getStartPoint().getX() - 5},
+                        new int[]{shape.getStartPoint().getY() - 15, shape.getEndPoint().getY() + 5, shape.getEndPoint().getY() + 5}, 3);
+            } else if (shape.getShapeType() == 1) {
+                g.drawPolygon(new int[]{shape.getStartPoint().getX() - 5, shape.getEndPoint().getX() + 15, shape.getStartPoint().getX() - 5},
+                        new int[]{shape.getStartPoint().getY() + 15, shape.getEndPoint().getY() - 10, shape.getEndPoint().getY() - 10}, 3);
+            } else {
+                g.drawPolygon(new int[]{shape.getStartPoint().getX() + 5, shape.getEndPoint().getX() - 15, shape.getStartPoint().getX() + 5},
+                        new int[]{shape.getStartPoint().getY() - 15, shape.getEndPoint().getY() + 10, shape.getEndPoint().getY() + 10}, 3);
+            }
+
+        }
 
     }
 }
