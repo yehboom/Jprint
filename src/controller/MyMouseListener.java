@@ -19,7 +19,7 @@ import java.awt.event.MouseEvent;
 
 import static model.StartAndEndPointMode.*;
 
-public class MyMouseListener extends MouseAdapter implements ISubject {
+public class MyMouseListener extends MouseAdapter {
 
     private Point startPoint;
     private Point endPoint;
@@ -63,13 +63,5 @@ public class MyMouseListener extends MouseAdapter implements ISubject {
     }
 
 
-    @Override
-    public void registerObserver(IObserver observer) {
 
-    }
-
-    @Override
-    public void removeObserver(IObserver observer) {
-
-    }
 }

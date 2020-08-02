@@ -3,7 +3,6 @@ package model;
 import model.factory.ShapeFactory;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
-import model.interfaces.RectangleStrategy;
 import model.persistence.ApplicationState;
 import model.persistence.ShapeStore;
 import view.interfaces.ICommand;
@@ -38,7 +37,6 @@ public class CreateShapeCommand implements ICommand {
         ShapeFactory shapeFactory=new ShapeFactory();
 
         if(appState.getActiveShapeType().compareTo(TRIANGLE)==0){
-            System.out.println("Triangle  draw");
             //get shape from shapeFactory
             newShape=shapeFactory.createTriangle();
 
@@ -96,7 +94,7 @@ public class CreateShapeCommand implements ICommand {
         store.addShape(newShape);
 
 
-        //factory method setting strategy
+        // setting strategy
         switch (appState.getActiveShapeType()){
             case RECTANGLE:
                 this.strategy=new RectangleStrategy(newShape);

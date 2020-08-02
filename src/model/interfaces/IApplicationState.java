@@ -5,6 +5,8 @@ import model.ShapeShadingType;
 import model.ShapeType;
 import model.StartAndEndPointMode;
 
+import java.util.List;
+
 public interface IApplicationState {
     void setActiveShape();
 
@@ -15,6 +17,13 @@ public interface IApplicationState {
     void setActiveShadingType();
 
     void setActiveStartAndEndPointMode();
+
+    void setCopy();
+
+    void setPaste();
+
+    void setDelete();
+
 
     ShapeType getActiveShapeType();
 

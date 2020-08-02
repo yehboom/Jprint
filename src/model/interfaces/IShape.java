@@ -16,6 +16,8 @@ public interface IShape extends IObserver {
     void setEndPoint(Point endPoint);
     void setWidth(int width);
     void setHeight(int height);
+
+    void setCopyCount();
     int getWidth();
     int getHeight();
     ShapeColor getShapeColorPrimary();
@@ -24,6 +26,8 @@ public interface IShape extends IObserver {
     Point getStartPoint();
     Point getEndPoint();
     boolean getSelect();
+
+    int getCopyCount();
 
     boolean getReverse();
 

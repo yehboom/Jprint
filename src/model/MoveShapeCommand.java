@@ -62,16 +62,6 @@ public class MoveShapeCommand implements ICommand, ISubject {
         g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
 
 
-//        for (IShape s1 : store.getShapeList()) {
-//            if (s1.toString().equals("Ellipse")) {
-//                strategy = new EllipseStrategy(s1);
-//            } else if (s1.toString().equals("Triangle")) {
-//                strategy = new TriangleStrategy(s1);
-//            } else if (s1.toString().equals("Rectangle")) {
-//                strategy = new RectangleStrategy(s1);
-//            }
-//            strategy.draw(g);
-//        }
 
         notifyObservers(g);
 

@@ -25,11 +25,13 @@ public enum ShapeColor {
         this.colorName = name;
     }
 
+    public String getColorName() {
+        return colorName;
+    }
+
     public Color getAwtColor() {
         return awtColor;
     }
 
-    public String getColorName() {
-        return colorName;
-    }
+
 }

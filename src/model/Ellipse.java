@@ -17,7 +17,8 @@ public class Ellipse implements IShape {
     private ShapeShadingType shapeShadingType;
     private boolean select;
     private boolean reverse;
-    private boolean specialDirection;
+    private int copyCount = 0;
+
 
 
     private ShapeType activeShapeType;
@@ -30,13 +31,6 @@ public class Ellipse implements IShape {
     public Ellipse(){
         select = false;
     }
-
-
-    public void setSpecialDirection(Boolean b) {
-        this.specialDirection = b;
-    }
-
-
 
     public void setReverse(Boolean b) {
         this.reverse = b;
@@ -71,6 +65,18 @@ public class Ellipse implements IShape {
 
     public void setHeight(int height){
         this.height=height;
+    }
+
+    public void setCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount += 50;
+        } else {
+            copyCount++;
+        }
+    }
+
+    public int getCopyCount() {
+        return this.copyCount + 50;
     }
 
     public int getWidth(){
@@ -111,11 +117,6 @@ public class Ellipse implements IShape {
 
     public boolean getReverse() {
         return this.reverse;
-    }
-
-
-    public boolean getSpecialDirection() {
-        return this.specialDirection;
     }
 
 

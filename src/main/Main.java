@@ -19,12 +19,13 @@ public class Main {
         PaintCanvasBase paintCanvas = new PaintCanvas();
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
-        ApplicationState appState = new ApplicationState(uiModule);
+        //initial a shape store for later store the shape
+        ShapeStore store = new ShapeStore();
+        ApplicationState appState = new ApplicationState(uiModule, paintCanvas, store);
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
 
-        //initial a shape store for later store the shape
-        ShapeStore store=new ShapeStore();
+
         //add mouseListener to the canvas
         paintCanvas.addMouseListener(new MyMouseListener(paintCanvas,store,appState));
 
@@ -35,7 +36,7 @@ public class Main {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//
+
 //        // Filled in rectangle
 //        Graphics2D graphics2d = paintCanvas.getGraphics2D();
 //        graphics2d.setColor(Color.GREEN);

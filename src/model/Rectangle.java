@@ -3,7 +3,6 @@ package model;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
-import model.interfaces.RectangleStrategy;
 
 import java.awt.*;
 
@@ -15,6 +14,7 @@ public class Rectangle implements IShape {
     private boolean select;
     private boolean reverse;
     private boolean specialDirection;
+    private int copyCount;
 
 
     private ShapeColor shapeColorPrimary;
@@ -33,15 +33,10 @@ public class Rectangle implements IShape {
     }
 
 
-
     public void setReverse(Boolean b) {
         this.reverse = b;
     }
 
-    public void setSpecialDirection(Boolean b) {
-        this.specialDirection = b;
-
-    }
 
     public void setSelect(Boolean b) {
         this.select = b;
@@ -115,12 +110,19 @@ public class Rectangle implements IShape {
         return this.reverse;
     }
 
-
-
-    public boolean getSpecialDirection() {
-        return this.specialDirection;
-
+    public void setCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount += 50;
+        } else {
+            copyCount++;
+        }
     }
+
+    public int getCopyCount() {
+        return this.copyCount + 50;
+    }
+
+
 
     @Override
     public void update(IObserver observer, Graphics2D g) {

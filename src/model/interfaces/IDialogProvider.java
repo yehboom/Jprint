@@ -17,4 +17,6 @@ public interface IDialogProvider {
     IDialogChoice<ShapeShadingType> getChooseShadingTypeDialog();
 
     IDialogChoice<StartAndEndPointMode> getChooseStartAndEndPointModeDialog();
+
+
 }

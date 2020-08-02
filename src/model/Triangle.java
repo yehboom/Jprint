@@ -13,8 +13,7 @@ public class Triangle implements IShape {
     private int height;
     private boolean select;
     private boolean reverse;
-    private boolean specialDirection;
-
+    private int copyCount;
 
 
     private ShapeColor shapeColorPrimary;
@@ -29,13 +28,8 @@ public class Triangle implements IShape {
     //set default shape
     public Triangle(){
         this.select = false;
-
-
     }
 
-    public void setSpecialDirection(Boolean b) {
-        this.specialDirection = b;
-    }
 
     public void setSelect(Boolean b) {
         this.select = b;
@@ -118,12 +112,17 @@ public class Triangle implements IShape {
         return this.reverse;
     }
 
-
-    public boolean getSpecialDirection() {
-        return this.specialDirection;
+    public void setCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount += 50;
+        } else {
+            copyCount++;
+        }
     }
 
-
+    public int getCopyCount() {
+        return this.copyCount + 50;
+    }
 
 
     @Override

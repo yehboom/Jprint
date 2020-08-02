@@ -1,15 +1,19 @@
 package model.persistence;
 
-import model.ShapeColor;
-import model.ShapeShadingType;
-import model.ShapeType;
-import model.StartAndEndPointMode;
+import model.*;
+import model.Point;
 import model.dialogs.DialogProvider;
+import model.factory.ShapeFactory;
 import model.interfaces.IApplicationState;
 import model.interfaces.IDialogProvider;
+import model.interfaces.IShape;
+import view.gui.PaintCanvas;
 import view.interfaces.IUiModule;
+import view.interfaces.PaintCanvasBase;
 
+import java.awt.*;
 import java.io.Serializable;
+import java.util.List;
 
 public class ApplicationState implements IApplicationState, Serializable {
     private static final long serialVersionUID = -5545483996576839009L;
@@ -21,12 +25,102 @@ public class ApplicationState implements IApplicationState, Serializable {
     private ShapeColor activeSecondaryColor;
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
+    private List<IShape> selectList;
+    private List<IShape> copyList;
+    private PaintCanvasBase paintCanvas;
+    private ShapeStore store;
+    private Graphics2D g;
 
-    public ApplicationState(IUiModule uiModule) {
+
+    public ApplicationState(IUiModule uiModule, PaintCanvasBase paintCanvas, ShapeStore store) {
         this.uiModule = uiModule;
         this.dialogProvider = new DialogProvider(this);
+        this.paintCanvas = paintCanvas;
+        this.store = store;
         setDefaults();
+        g = paintCanvas.getGraphics2D();
     }
+
+    public void setSelectList(List<IShape> selectList) {
+        this.selectList = selectList;
+    }
+
+    @Override
+    public void setDelete() {
+        List<IShape> allList = store.getShapeList();
+
+        for (IShape s : selectList) {
+            allList.remove(s);
+        }
+        print(allList);
+    }
+
+    @Override
+    public void setCopy() {
+        System.out.println("copy");
+        copyList = this.selectList;
+
+    }
+
+    @Override
+    public void setPaste() {
+        System.out.println("Paste");
+        ShapeFactory shapeFactory = new ShapeFactory();
+        //need to revise here
+        IShape newShape = shapeFactory.createEllipse();
+
+        for (IShape i : copyList) {
+
+            Point pointStart = i.getStartPoint();
+            Point pointEnd = i.getEndPoint();
+            String type = i.toString();
+            i.setCopyCount();
+
+            if (type.equals("Triangle")) {
+                newShape = shapeFactory.createTriangle();
+            } else if (type.equals("Ellipse")) {
+                newShape = shapeFactory.createEllipse();
+            } else if (type.equals("Rectangle")) {
+                newShape = shapeFactory.createRectangle();
+            }
+
+
+            int offsetValue = i.getCopyCount();
+
+            Point newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
+            Point newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
+            int newHeight = i.getHeight();
+            int newWidth = i.getWidth();
+
+            newShape.setStartPoint(newStart);
+            newShape.setEndPoint(newEnd);
+            newShape.setHeight(newHeight);
+            newShape.setWidth(newWidth);
+
+            newShape.setShapeShadingType(i.getShapeShadingType());
+            newShape.setShapeColorPrimary(i.getShapeColorPrimary());
+            newShape.setShapeColorSecond(i.getShapeColorSecond());
+
+
+            store.addShape(newShape);
+        }
+
+        List<IShape> allList = store.getShapeList();
+        print(allList);
+
+    }
+
+    public void print(List<IShape> allList) {
+
+        g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+        g.setColor(Color.white);
+        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
+        for (IShape s : allList) {
+            s.update(s, g);
+        }
+    }
+
 
     @Override
     public void setActiveShape() {
