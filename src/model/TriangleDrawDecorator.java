@@ -8,8 +8,6 @@ import java.awt.*;
 
 public abstract class TriangleDrawDecorator implements IStrategy {
     private IShape shape;
-
-
     public TriangleDrawDecorator(IShape shape) {
         this.shape = shape;
     }

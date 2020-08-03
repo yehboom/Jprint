@@ -81,7 +81,6 @@ public class CreateShapeCommand implements ICommand {
         } else if (endPoint.getX() < startPoint.getX() && endPoint.getY() > startPoint.getY()) {
             newShape.setShapeType(2);
         } else {
-            System.out.println("Normal");
         }
 
 
@@ -90,7 +89,6 @@ public class CreateShapeCommand implements ICommand {
             if (startPoint.getX() > endPoint.getX() && startPoint.getY() < endPoint.getY()) {
                 startPoint = new Point(endPoint.getX(), startPoint.getY());
                 newShape.setStartPoint(startPoint);
-                // System.out.println("333Reverse!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             } else if (startPoint.getX() < endPoint.getX() && startPoint.getY() > endPoint.getY()) {
                 startPoint = new Point(startPoint.getX(), endPoint.getY());
                 newShape.setStartPoint(startPoint);

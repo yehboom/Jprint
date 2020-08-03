@@ -133,7 +133,7 @@ public class Ellipse implements IShape {
 
     @Override
     public void update(IObserver observer, Graphics2D g) {
-        System.out.println("update");
+//        System.out.println("update");
         IStrategy strategy = new EllipseStrategy((IShape) observer);
         strategy.draw(g);
     }

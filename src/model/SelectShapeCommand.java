@@ -66,9 +66,9 @@ public class SelectShapeCommand implements ICommand {
         }
 
         //for display the select
-        graphics2d.setColor(Color.MAGENTA);
-        graphics2d.draw(r);
-/////////////////////////////////
+//        graphics2d.setColor(Color.MAGENTA);
+//        graphics2d.draw(r);
+
 
 
         for (IShape s : shapeList) {
