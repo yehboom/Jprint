@@ -7,7 +7,6 @@ import java.awt.*;
 public class RectangleOutlineDecorator extends RectanleDrawDecorator {
     private Point startPoint;
     private IShape shape;
-    private Point endPoint;
     private Graphics2D g;
 
     public RectangleOutlineDecorator(IShape shape) {
@@ -26,7 +25,6 @@ public class RectangleOutlineDecorator extends RectanleDrawDecorator {
     public void specialDraw() {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint = shape.getStartPoint();
-        endPoint = shape.getEndPoint();
 
         g.setStroke(new BasicStroke(5));
         g.drawRect(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());

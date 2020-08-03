@@ -4,16 +4,16 @@ import model.interfaces.IShape;
 
 import java.awt.*;
 
-public class RectangleOutlineAndFilledInDecorator extends RectanleDrawDecorator {
+public class EllipseFillInDecorator extends EllipseDrawDecorator {
     private Point startPoint;
     private IShape shape;
 
     private Graphics2D g;
 
-
-    public RectangleOutlineAndFilledInDecorator(IShape shape) {
+    public EllipseFillInDecorator(IShape shape) {
         super(shape);
         this.shape = shape;
+
     }
 
     @Override
@@ -28,12 +28,6 @@ public class RectangleOutlineAndFilledInDecorator extends RectanleDrawDecorator 
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint = shape.getStartPoint();
 
-
-        g.setStroke(new BasicStroke(5));
-        g.fillRect(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
-
-        g.setColor(shape.getShapeColorSecond().getAwtColor());
-        g.drawRect(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
-
+        g.fillOval(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
     }
 }

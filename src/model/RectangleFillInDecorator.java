@@ -7,7 +7,7 @@ import java.awt.*;
 public class RectangleFillInDecorator extends RectanleDrawDecorator {
     private Point startPoint;
     private IShape shape;
-    private Point endPoint;
+
     private Graphics2D g;
 
 
@@ -28,7 +28,7 @@ public class RectangleFillInDecorator extends RectanleDrawDecorator {
     public void specialDraw() {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
         startPoint = shape.getStartPoint();
-        endPoint = shape.getEndPoint();
+
 
         g.fillRect(startPoint.getX(), startPoint.getY(), shape.getWidth(), shape.getHeight());
 

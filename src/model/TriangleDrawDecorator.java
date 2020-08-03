@@ -9,7 +9,6 @@ import java.awt.*;
 public abstract class TriangleDrawDecorator implements IStrategy {
     private IShape shape;
 
-    private Graphics2D g;
 
     public TriangleDrawDecorator(IShape shape) {
         this.shape = shape;
@@ -29,7 +28,7 @@ public abstract class TriangleDrawDecorator implements IStrategy {
                 g.drawPolygon(new int[]{shape.getStartPoint().getX() - 5, shape.getEndPoint().getX() + 15, shape.getStartPoint().getX() - 5},
                         new int[]{shape.getStartPoint().getY() + 15, shape.getEndPoint().getY() - 10, shape.getEndPoint().getY() - 10}, 3);
             } else {
-                g.drawPolygon(new int[]{shape.getStartPoint().getX() + 5, shape.getEndPoint().getX() - 30, shape.getStartPoint().getX() + 5},
+                g.drawPolygon(new int[]{shape.getStartPoint().getX() + 5, shape.getEndPoint().getX() - 25, shape.getStartPoint().getX() + 5},
                         new int[]{shape.getStartPoint().getY() - 15, shape.getEndPoint().getY() + 5, shape.getEndPoint().getY() + 5}, 3);
             }
 
