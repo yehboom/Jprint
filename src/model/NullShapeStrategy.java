@@ -17,9 +17,9 @@ public class NullShapeStrategy implements IStrategy {
         //it it null, do nothing
     }
 
-    @Override
-    public void drawSelect(Graphics2D g) {
-        //it it null, do nothing
-    }
+//    @Override
+//    public void drawSelect(Graphics2D g) {
+//        //it it null, do nothing
+//    }
 
 }

@@ -119,6 +119,7 @@ public class ApplicationState implements IApplicationState, Serializable {
 
     }
 
+
     public void print(List<IShape> allList) {
 
         g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
