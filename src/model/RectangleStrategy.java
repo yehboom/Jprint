@@ -34,7 +34,7 @@ public class RectangleStrategy implements IStrategy {
             //System.out.println("OUTLINE_AND_FILLED_IN");
             rectangleDraw = new RectangleOutlineAndFilledInDecorator(shape);
         } else {
-            rectangleDraw = new NullDrawDecorator();
+            rectangleDraw = NullDrawDecorator.getInstance();
         }
         rectangleDraw.draw(g);
     }

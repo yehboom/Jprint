@@ -6,10 +6,13 @@ import model.interfaces.IStrategy;
 import java.awt.*;
 
 public class NullShapeStrategy implements IStrategy {
-    private IShape shape;
+    private static NullShapeStrategy instance = new NullShapeStrategy();
 
-    public NullShapeStrategy(IShape shape) {
-        this.shape = shape;
+    public NullShapeStrategy() {
+    }
+
+    public static NullShapeStrategy getInstance() {
+        return instance;
     }
 
     @Override

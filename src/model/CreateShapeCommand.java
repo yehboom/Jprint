@@ -116,7 +116,7 @@ public class CreateShapeCommand implements ICommand {
                 break;
             default:
                 System.out.println("Invalid shape selected :" + appState.getActiveShapeType());
-                this.strategy = new NullShapeStrategy(newShape);
+                this.strategy = NullShapeStrategy.getInstance();
                 break;
         }
 

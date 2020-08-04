@@ -34,7 +34,7 @@ public class TriangleStrategy implements IStrategy {
             //System.out.println("OUTLINE_AND_FILLED_IN");
             triangleDraw = new TriangleOutlineAndFilledInDecorator(shape);
         } else {
-            triangleDraw = new NullDrawDecorator();
+            triangleDraw = NullDrawDecorator.getInstance();
         }
 
 

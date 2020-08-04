@@ -33,7 +33,7 @@ public class EllipseStrategy implements IStrategy {
             // System.out.println("OUTLINE_AND_FILLED_IN");
             ellipseDraw = new EllipseOutlineAndFilledInDecorator(shape);
         } else {
-            ellipseDraw = new NullDrawDecorator();
+            ellipseDraw = NullDrawDecorator.getInstance();
         }
         ellipseDraw.draw(g);
     }
