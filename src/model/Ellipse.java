@@ -82,6 +82,15 @@ public class Ellipse implements IShape {
         }
     }
 
+    public void deductCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount -= 50;
+        } else {
+            copyCount--;
+        }
+
+    }
+
     public int getCopyCount() {
         return this.copyCount + 50;
     }

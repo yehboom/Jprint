@@ -49,7 +49,6 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public void setDelete() {
         new DeleteCommand(store, paintCanvas, g, selectList).run();
-
     }
 
     public void deleteCreate() {
@@ -61,7 +60,9 @@ public class ApplicationState implements IApplicationState, Serializable {
         for (IShape s : selectList) {
             allList.remove(s);
         }
-        print(allList);
+
+        Printer.print(allList, g, paintCanvas);
+//        print(allList);
 
     }
 
@@ -87,8 +88,8 @@ public class ApplicationState implements IApplicationState, Serializable {
     @Override
     public void setPaste() {
         new PasteCommand(copyList, store, paintCanvas, g).run();
-        List<IShape> allList = store.getShapeList();
-        print(allList);
+//        List<IShape> allList = store.getShapeList();
+//        print(allList);
     }
 
 

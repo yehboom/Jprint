@@ -10,6 +10,7 @@ public class Printer {
 
 
     public static void print(List<IShape> allList, Graphics2D g, PaintCanvasBase paintCanvas) {
+        System.out.println("print!!!");
 
         g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         g.setColor(Color.white);

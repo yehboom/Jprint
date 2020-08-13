@@ -128,6 +128,10 @@ public class NullShape implements IShape {
     }
 
     @Override
+    public void deductCopyCount() {
+    }
+
+    @Override
     public boolean getReverse() {
         return false;
     }

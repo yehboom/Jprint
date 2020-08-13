@@ -128,6 +128,15 @@ public class Triangle implements IShape {
         }
     }
 
+    public void deductCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount -= 50;
+        } else {
+            copyCount--;
+        }
+
+    }
+
     public int getCopyCount() {
         return this.copyCount + 50;
     }
@@ -139,5 +148,6 @@ public class Triangle implements IShape {
         IStrategy strategy = new TriangleStrategy((IShape) observer);
         strategy.draw(g);
     }
+
 
 }

@@ -24,7 +24,7 @@ public class CommandHistory {
     }
 
     public static boolean redo() {
-        System.out.println("Redo stack size" + undoStack.size());
+        System.out.println("Redo stack size" + redoStack.size());
         boolean result = !redoStack.empty();
 
         if (result) {

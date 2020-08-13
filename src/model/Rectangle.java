@@ -125,6 +125,15 @@ public class Rectangle implements IShape {
         }
     }
 
+    public void deductCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount -= 50;
+        } else {
+            copyCount--;
+        }
+
+    }
+
     public int getShapeType() {
         return this.shapeType;
     }

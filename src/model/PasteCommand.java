@@ -35,6 +35,8 @@ public class PasteCommand implements ICommand, IUndoable {
         paste();
 
         CommandHistory.add(this);
+        List<IShape> allList = store.getShapeList();
+        Printer.print(allList, g, paintCanvas);
 
 
 
@@ -42,15 +44,17 @@ public class PasteCommand implements ICommand, IUndoable {
     }
 
     public void paste() {
-        System.out.println("Paste");
+
 
         if (copyList == null) {
+
             return;
         }
 
         ShapeFactory shapeFactory = new ShapeFactory();
 
         for (IShape i : copyList) {
+
 
             Point pointStart = i.getStartPoint();
             Point pointEnd = i.getEndPoint();
@@ -70,9 +74,13 @@ public class PasteCommand implements ICommand, IUndoable {
 
 
             int offsetValue = i.getCopyCount();
+            Point newStart;
+            Point newEnd;
 
-            Point newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
-            Point newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
+
+            newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
+            newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
+
             int newHeight = i.getHeight();
             int newWidth = i.getWidth();
 
@@ -88,20 +96,26 @@ public class PasteCommand implements ICommand, IUndoable {
 
             store.addShape(newShape);
             pasteShapeList.add(newShape);
+
+
         }
 
     }
 
     @Override
     public void undo() {
-        System.out.println("Paste undo");
+
         List<IShape> allList = store.getShapeList();
 
-        System.out.println("paste allList size" + allList.size());
+
         if (allList.size() == 0) {
             return;
         }
-        System.out.println("Appstate select size" + pasteShapeList.size());
+
+        for (IShape s : allList) {
+            s.deductCopyCount();
+        }
+
         for (IShape s : pasteShapeList) {
             allList.remove(s);
         }
@@ -114,6 +128,7 @@ public class PasteCommand implements ICommand, IUndoable {
 
     @Override
     public void redo() {
+
         paste();
         List<IShape> allList = store.getShapeList();
 

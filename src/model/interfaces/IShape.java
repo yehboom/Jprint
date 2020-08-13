@@ -21,6 +21,8 @@ public interface IShape extends IObserver {
 
 
     void setCopyCount();
+
+    void deductCopyCount();
     int getWidth();
     int getHeight();
     ShapeColor getShapeColorPrimary();
