@@ -136,10 +136,11 @@ public class CreateShapeCommand implements ICommand, IUndoable {
 
     @Override
     public void undo() {
+        System.out.println("create undo");
         store.cleanSelectShapeList();
         store.addSelectShape(newShape);
         appState.setSelectList(store.getSelectShapeList());
-        appState.setDelete();
+        appState.deleteCreate();
     }
 
     @Override

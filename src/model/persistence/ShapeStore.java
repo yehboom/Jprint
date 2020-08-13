@@ -9,6 +9,7 @@ public class ShapeStore {
     private ArrayList<IShape> shapeList;
 
     private ArrayList<IShape> selectShapeList;
+
     //constructor
     public ShapeStore(){
 
@@ -35,5 +36,6 @@ public class ShapeStore {
     public void cleanSelectShapeList() {
         this.selectShapeList = new ArrayList<>();
     }
+
 
 }
