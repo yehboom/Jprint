@@ -24,6 +24,10 @@ public interface IApplicationState {
 
     void setDelete();
 
+    void setUndo();
+
+    void setRedo();
+
 
     ShapeType getActiveShapeType();
 

@@ -10,7 +10,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveShapeCommand implements ICommand, ISubject {
+public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
     private Point startPoint;
     private Point endPoint;
     private IShape newShape;
@@ -23,6 +23,8 @@ public class MoveShapeCommand implements ICommand, ISubject {
 
     private List<IObserver> observers = new ArrayList<>();
 
+    private ArrayList<IShape> selectShapelist;
+
 
     public MoveShapeCommand(Point startPoint, Point endPoint, ShapeStore store, PaintCanvasBase paintCanvas, ApplicationState appState) {
         this.startPoint = startPoint;
@@ -31,42 +33,13 @@ public class MoveShapeCommand implements ICommand, ISubject {
         this.paintCanvas = paintCanvas;
         this.appState = appState;
         shapeList = store.getShapeList();
+        selectShapelist = store.getSelectShapeList();
     }
 
     @Override
     public void run() {
-        Graphics2D g = paintCanvas.getGraphics2D();
-
-        int moveX = endPoint.getX() - startPoint.getX();
-        int moveY = endPoint.getY() - startPoint.getY();
-
-        for (IShape s1 : store.getShapeList()) {
-            registerObserver(s1);
-        }
-
-
-        for (IShape s : store.getSelectShapeList()) {
-            Point tempStartPoint = s.getStartPoint();
-            Point tempEndPoint = s.getEndPoint();
-            int tempStartPointX = tempStartPoint.getX() + moveX;
-            int tempStartPointY = tempStartPoint.getY() + moveY;
-            int tempEndPointX = tempEndPoint.getX() + moveX;
-            int tempEndPointY = tempEndPoint.getY() + moveY;
-
-            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
-            s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
-
-        }
-        g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
-        g.setColor(Color.white);
-        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
-
-
-
-        notifyObservers(g);
-
-
-
+        move();
+        CommandHistory.add(this);
     }
 
     @Override
@@ -83,5 +56,77 @@ public class MoveShapeCommand implements ICommand, ISubject {
         for (IObserver observer : observers) {
             observer.update(observer, g);
         }
+    }
+
+    @Override
+    public void undo() {
+        Graphics2D g = paintCanvas.getGraphics2D();
+
+        int moveX = endPoint.getX() - startPoint.getX();
+        int moveY = endPoint.getY() - startPoint.getY();
+
+        for (IShape s1 : store.getShapeList()) {
+            registerObserver(s1);
+        }
+
+
+        for (IShape s : selectShapelist) {
+            Point tempStartPoint = s.getStartPoint();
+            Point tempEndPoint = s.getEndPoint();
+
+            int tempStartPointX = tempStartPoint.getX() - moveX;
+            int tempStartPointY = tempStartPoint.getY() - moveY;
+            int tempEndPointX = tempEndPoint.getX() - moveX;
+            int tempEndPointY = tempEndPoint.getY() - moveY;
+
+            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
+            s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
+
+        }
+        g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+        g.setColor(Color.white);
+        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
+        notifyObservers(g);
+
+    }
+
+    public void move() {
+        Graphics2D g = paintCanvas.getGraphics2D();
+
+        int moveX = endPoint.getX() - startPoint.getX();
+        int moveY = endPoint.getY() - startPoint.getY();
+
+        for (IShape s1 : store.getShapeList()) {
+            registerObserver(s1);
+        }
+
+
+        for (IShape s : selectShapelist) {
+            Point tempStartPoint = s.getStartPoint();
+            Point tempEndPoint = s.getEndPoint();
+
+            int tempStartPointX = tempStartPoint.getX() + moveX;
+            int tempStartPointY = tempStartPoint.getY() + moveY;
+            int tempEndPointX = tempEndPoint.getX() + moveX;
+            int tempEndPointY = tempEndPoint.getY() + moveY;
+
+            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
+            s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
+
+        }
+        g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+        g.setColor(Color.white);
+        g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+
+
+        notifyObservers(g);
+
+    }
+
+    @Override
+    public void redo() {
+        move();
+
     }
 }

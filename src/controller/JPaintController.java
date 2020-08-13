@@ -1,6 +1,7 @@
 package controller;
 
 import model.interfaces.IApplicationState;
+import org.w3c.dom.events.Event;
 import view.EventName;
 import view.interfaces.IUiModule;
 
@@ -27,6 +28,8 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.COPY, () -> applicationState.setCopy());
         uiModule.addEvent(EventName.PASTE, () -> applicationState.setPaste());
         uiModule.addEvent(EventName.DELETE, () -> applicationState.setDelete());
+        uiModule.addEvent(EventName.UNDO, () -> applicationState.setUndo());
+        uiModule.addEvent(EventName.REDO, () -> applicationState.setRedo());
     }
 
 

@@ -48,14 +48,21 @@ public class ApplicationState implements IApplicationState, Serializable {
 
     @Override
     public void setDelete() {
+        new DeleteCommand(store).run();
         List<IShape> allList = store.getShapeList();
-        if (allList.size() == 0) {
-            return;
-        }
-        for (IShape s : selectList) {
-            allList.remove(s);
-        }
         print(allList);
+    }
+
+    @Override
+    public void setUndo() {
+        System.out.println("setUndo");
+        new UndoCommand().run();
+    }
+
+    @Override
+    public void setRedo() {
+        System.out.println("setRedo");
+        new RedoCommand().run();
     }
 
     @Override
@@ -67,53 +74,7 @@ public class ApplicationState implements IApplicationState, Serializable {
 
     @Override
     public void setPaste() {
-        System.out.println("Paste");
-
-        if (copyList == null) {
-            return;
-        }
-
-        ShapeFactory shapeFactory = new ShapeFactory();
-        IShape newShape;
-        for (IShape i : copyList) {
-
-            Point pointStart = i.getStartPoint();
-            Point pointEnd = i.getEndPoint();
-            String type = i.toString();
-            i.setCopyCount();
-
-
-            if (type.equals("Triangle")) {
-                newShape = shapeFactory.createTriangle();
-            } else if (type.equals("Ellipse")) {
-                newShape = shapeFactory.createEllipse();
-            } else if (type.equals("Rectangle")) {
-                newShape = shapeFactory.createRectangle();
-            } else {
-                newShape = shapeFactory.createNullShape();
-            }
-
-
-            int offsetValue = i.getCopyCount();
-
-            Point newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
-            Point newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
-            int newHeight = i.getHeight();
-            int newWidth = i.getWidth();
-
-            newShape.setStartPoint(newStart);
-            newShape.setEndPoint(newEnd);
-            newShape.setHeight(newHeight);
-            newShape.setWidth(newWidth);
-
-            newShape.setShapeShadingType(i.getShapeShadingType());
-            newShape.setShapeColorPrimary(i.getShapeColorPrimary());
-            newShape.setShapeColorSecond(i.getShapeColorSecond());
-
-
-            store.addShape(newShape);
-        }
-
+        new PasteCommand(copyList, store).run();
         List<IShape> allList = store.getShapeList();
         print(allList);
 

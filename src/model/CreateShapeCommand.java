@@ -10,7 +10,7 @@ import view.interfaces.PaintCanvasBase;
 
 import static model.ShapeType.*;
 
-public class CreateShapeCommand implements ICommand {
+public class CreateShapeCommand implements ICommand, IUndoable {
     private Point startPoint;
     private Point endPoint;
     private IShape newShape;
@@ -99,8 +99,11 @@ public class CreateShapeCommand implements ICommand {
         newShape.setHeight(height);
 
 
+        store.cleanSelectShapeList();
         //add the new shape to the list
         store.addShape(newShape);
+        store.addSelectShape(newShape);
+        appState.setSelectList(store.getSelectShapeList());
 
 
         // setting strategy
@@ -124,12 +127,30 @@ public class CreateShapeCommand implements ICommand {
 
 
         //draw a shape
-        ICommand d= new DrawCommand(strategy,paintCanvas);
+        ICommand d = new DrawCommand(strategy, paintCanvas, appState);
+
         d.run();
-
-
-
+        CommandHistory.add(this);
 
     }
 
+    @Override
+    public void undo() {
+        store.cleanSelectShapeList();
+        store.addSelectShape(newShape);
+        appState.setSelectList(store.getSelectShapeList());
+        appState.setDelete();
+    }
+
+    @Override
+    public void redo() {
+        store.cleanSelectShapeList();
+        store.addShape(newShape);
+        store.addSelectShape(newShape);
+        appState.setSelectList(store.getSelectShapeList());
+
+        //draw a shape
+        ICommand d = new DrawCommand(strategy, paintCanvas, appState);
+        d.run();
+    }
 }
