@@ -2,6 +2,7 @@ package model;
 
 import model.factory.ShapeFactory;
 import model.interfaces.IShape;
+import model.interfaces.Ithing;
 import model.persistence.ShapeStore;
 import view.interfaces.ICommand;
 import view.interfaces.PaintCanvasBase;
@@ -11,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PasteCommand implements ICommand, IUndoable {
-    private List<IShape> copyList;
+    private List<Ithing> copyList;
     private ShapeStore store;
     private IShape newShape;
-    private List<IShape> pasteShapeList;
+    private List<Ithing> pasteShapeList;
 
     private PaintCanvasBase paintCanvas;
     private Graphics2D g;
 
 
-    public PasteCommand(List<IShape> copyList, ShapeStore store, PaintCanvasBase paintCanvas, Graphics2D g) {
+    public PasteCommand(List<Ithing> copyList, ShapeStore store, PaintCanvasBase paintCanvas, Graphics2D g) {
         this.copyList = copyList;
         this.store = store;
         pasteShapeList = new ArrayList<>();
@@ -35,7 +36,7 @@ public class PasteCommand implements ICommand, IUndoable {
         paste();
 
         CommandHistory.add(this);
-        List<IShape> allList = store.getShapeList();
+        List<Ithing> allList = store.getShapeList();
         Printer.print(allList, g, paintCanvas);
 
 
@@ -53,13 +54,13 @@ public class PasteCommand implements ICommand, IUndoable {
 
         ShapeFactory shapeFactory = new ShapeFactory();
 
-        for (IShape i : copyList) {
+        for (Ithing i : copyList) {
 
 
-            Point pointStart = i.getStartPoint();
-            Point pointEnd = i.getEndPoint();
+            Point pointStart = ((IShape) i).getStartPoint();
+            Point pointEnd = ((IShape) i).getEndPoint();
             String type = i.toString();
-            i.setCopyCount();
+            ((IShape) i).setCopyCount();
 
 
             if (type.equals("Triangle")) {
@@ -73,7 +74,7 @@ public class PasteCommand implements ICommand, IUndoable {
             }
 
 
-            int offsetValue = i.getCopyCount();
+            int offsetValue = ((IShape) i).getCopyCount();
             Point newStart;
             Point newEnd;
 
@@ -81,17 +82,17 @@ public class PasteCommand implements ICommand, IUndoable {
             newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
             newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
 
-            int newHeight = i.getHeight();
-            int newWidth = i.getWidth();
+            int newHeight = ((IShape) i).getHeight();
+            int newWidth = ((IShape) i).getWidth();
 
             newShape.setStartPoint(newStart);
             newShape.setEndPoint(newEnd);
             newShape.setHeight(newHeight);
             newShape.setWidth(newWidth);
 
-            newShape.setShapeShadingType(i.getShapeShadingType());
-            newShape.setShapeColorPrimary(i.getShapeColorPrimary());
-            newShape.setShapeColorSecond(i.getShapeColorSecond());
+            newShape.setShapeShadingType(((IShape) i).getShapeShadingType());
+            newShape.setShapeColorPrimary(((IShape) i).getShapeColorPrimary());
+            newShape.setShapeColorSecond(((IShape) i).getShapeColorSecond());
 
 
             store.addShape(newShape);
@@ -105,18 +106,18 @@ public class PasteCommand implements ICommand, IUndoable {
     @Override
     public void undo() {
 
-        List<IShape> allList = store.getShapeList();
+        List<Ithing> allList = store.getShapeList();
 
 
         if (allList.size() == 0) {
             return;
         }
 
-        for (IShape s : allList) {
-            s.deductCopyCount();
+        for (Ithing s : allList) {
+            ((IShape) s).deductCopyCount();
         }
 
-        for (IShape s : pasteShapeList) {
+        for (Ithing s : pasteShapeList) {
             allList.remove(s);
         }
 
@@ -130,7 +131,7 @@ public class PasteCommand implements ICommand, IUndoable {
     public void redo() {
 
         paste();
-        List<IShape> allList = store.getShapeList();
+        List<Ithing> allList = store.getShapeList();
 
         Printer.print(allList, g, paintCanvas);
 

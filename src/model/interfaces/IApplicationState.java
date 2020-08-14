@@ -28,6 +28,8 @@ public interface IApplicationState {
 
     void setRedo();
 
+    void setGroup();
+
 
     ShapeType getActiveShapeType();
 

@@ -1,13 +1,8 @@
 package model.persistence;
 
 import model.*;
-import model.Point;
 import model.dialogs.DialogProvider;
-import model.factory.ShapeFactory;
-import model.interfaces.IApplicationState;
-import model.interfaces.IDialogProvider;
-import model.interfaces.IShape;
-import view.gui.PaintCanvas;
+import model.interfaces.*;
 import view.interfaces.IUiModule;
 import view.interfaces.PaintCanvasBase;
 
@@ -25,8 +20,8 @@ public class ApplicationState implements IApplicationState, Serializable {
     private ShapeColor activeSecondaryColor;
     private ShapeShadingType activeShapeShadingType;
     private StartAndEndPointMode activeStartAndEndPointMode;
-    private List<IShape> selectList;
-    private List<IShape> copyList;
+    private List<Ithing> selectList;
+    private List<Ithing> copyList;
     private PaintCanvasBase paintCanvas;
     private ShapeStore store;
     private Graphics2D g;
@@ -42,7 +37,7 @@ public class ApplicationState implements IApplicationState, Serializable {
         g = paintCanvas.getGraphics2D();
     }
 
-    public void setSelectList(List<IShape> selectList) {
+    public void setSelectList(List<Ithing> selectList) {
         this.selectList = selectList;
     }
 
@@ -52,18 +47,29 @@ public class ApplicationState implements IApplicationState, Serializable {
     }
 
     public void deleteCreate() {
-        List<IShape> allList = store.getShapeList();
-        List<IShape> selectList = store.getSelectShapeList();
+        List<Ithing> allList = store.getShapeList();
+        List<Ithing> selectList = store.getSelectShapeList();
         if (allList.size() == 0) {
             return;
         }
-        for (IShape s : selectList) {
+        for (Ithing s : selectList) {
             allList.remove(s);
         }
 
         Printer.print(allList, g, paintCanvas);
 //        print(allList);
 
+    }
+
+    @Override
+    public void setGroup() {
+
+
+        GroupCommand newGroupCommand = new GroupCommand(selectList, store, g);
+        newGroupCommand.run();
+
+
+        System.out.println("GroupCommand size" + newGroupCommand.getSize());
     }
 
     @Override
@@ -93,14 +99,14 @@ public class ApplicationState implements IApplicationState, Serializable {
     }
 
 
-    public void print(List<IShape> allList) {
+    public void print(List<Ithing> allList) {
 
         g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
         g.setColor(Color.white);
         g.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
 
-        for (IShape s : allList) {
-            s.update(s, g);
+        for (Ithing s : allList) {
+            ((IShape) s).update(((IObserver) s), g);
         }
     }
 

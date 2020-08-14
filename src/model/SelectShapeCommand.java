@@ -1,10 +1,7 @@
 package model;
 
 import model.factory.ShapeFactory;
-import model.interfaces.IObserver;
-import model.interfaces.IShape;
-import model.interfaces.IStrategy;
-import model.interfaces.ISubject;
+import model.interfaces.*;
 import model.persistence.ApplicationState;
 import model.persistence.ShapeStore;
 import view.interfaces.ICommand;
@@ -23,7 +20,7 @@ public class SelectShapeCommand implements ICommand {
     private ApplicationState appState;
     private IStrategy strategy;
 
-    private ArrayList<IShape> shapeList;
+    private ArrayList<Ithing> shapeList;
 
 
 
@@ -70,8 +67,8 @@ public class SelectShapeCommand implements ICommand {
 //        graphics2d.draw(r);
 
 
-
-        for (IShape s : shapeList) {
+        for (Ithing s1 : shapeList) {
+            IShape s = (IShape) s1;
 
             s.setSelect(false);
 
@@ -108,7 +105,10 @@ public class SelectShapeCommand implements ICommand {
         graphics2d.setColor(Color.white);
         graphics2d.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
 
-        for (IShape s : shapeList) {
+        System.out.println("select list's shapelist size!!!!!:" + shapeList.size());
+        for (Ithing s1 : shapeList) {
+            IShape s = (IShape) s1;
+
             s.update(s, graphics2d);
         }
     }

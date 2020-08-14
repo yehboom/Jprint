@@ -19,11 +19,11 @@ public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
     private ApplicationState appState;
     private IStrategy strategy;
 
-    private ArrayList<IShape> shapeList;
+    private ArrayList<Ithing> shapeList;
 
     private List<IObserver> observers = new ArrayList<>();
 
-    private ArrayList<IShape> selectShapelist;
+    private ArrayList<Ithing> selectShapelist;
 
 
     public MoveShapeCommand(Point startPoint, Point endPoint, ShapeStore store, PaintCanvasBase paintCanvas, ApplicationState appState) {
@@ -65,22 +65,22 @@ public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
         int moveX = endPoint.getX() - startPoint.getX();
         int moveY = endPoint.getY() - startPoint.getY();
 
-        for (IShape s1 : store.getShapeList()) {
-            registerObserver(s1);
+        for (Ithing s1 : store.getShapeList()) {
+            registerObserver((IShape) s1);
         }
 
 
-        for (IShape s : selectShapelist) {
-            Point tempStartPoint = s.getStartPoint();
-            Point tempEndPoint = s.getEndPoint();
+        for (Ithing s : selectShapelist) {
+            Point tempStartPoint = ((IShape) s).getStartPoint();
+            Point tempEndPoint = ((IShape) s).getEndPoint();
 
             int tempStartPointX = tempStartPoint.getX() - moveX;
             int tempStartPointY = tempStartPoint.getY() - moveY;
             int tempEndPointX = tempEndPoint.getX() - moveX;
             int tempEndPointY = tempEndPoint.getY() - moveY;
 
-            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
-            s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
+            ((IShape) s).setStartPoint(new Point(tempStartPointX, tempStartPointY));
+            ((IShape) s).setEndPoint(new Point(tempEndPointX, tempEndPointY));
 
         }
         g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
@@ -97,22 +97,23 @@ public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
         int moveX = endPoint.getX() - startPoint.getX();
         int moveY = endPoint.getY() - startPoint.getY();
 
-        for (IShape s1 : store.getShapeList()) {
-            registerObserver(s1);
+        System.out.println("move list's shapelist size!!!!!:" + store.getShapeList().size());
+        for (Ithing s1 : store.getShapeList()) {
+            registerObserver((IShape) s1);
         }
 
 
-        for (IShape s : selectShapelist) {
-            Point tempStartPoint = s.getStartPoint();
-            Point tempEndPoint = s.getEndPoint();
+        for (Ithing s : selectShapelist) {
+            Point tempStartPoint = ((IShape) s).getStartPoint();
+            Point tempEndPoint = ((IShape) s).getEndPoint();
 
             int tempStartPointX = tempStartPoint.getX() + moveX;
             int tempStartPointY = tempStartPoint.getY() + moveY;
             int tempEndPointX = tempEndPoint.getX() + moveX;
             int tempEndPointY = tempEndPoint.getY() + moveY;
 
-            s.setStartPoint(new Point(tempStartPointX, tempStartPointY));
-            s.setEndPoint(new Point(tempEndPointX, tempEndPointY));
+            ((IShape) s).setStartPoint(new Point(tempStartPointX, tempStartPointY));
+            ((IShape) s).setEndPoint(new Point(tempEndPointX, tempEndPointY));
 
         }
         g.clearRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());

@@ -3,10 +3,11 @@ package model;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
+import model.interfaces.Ithing;
 
 import java.awt.*;
 
-public class Triangle implements IShape {
+public class Triangle implements IShape, IComponent, Ithing {
     private Point startPoint;
     private Point endPoint;
     private int width;

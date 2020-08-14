@@ -2,6 +2,7 @@ package model;
 
 import model.interfaces.IShape;
 
+import model.interfaces.Ithing;
 import model.persistence.ShapeStore;
 import view.interfaces.ICommand;
 import view.interfaces.PaintCanvasBase;
@@ -15,11 +16,11 @@ public class DeleteCommand implements ICommand, IUndoable {
     private ShapeStore store;
     private PaintCanvasBase paintCanvas;
     private Graphics2D g;
-    private List<IShape> allList;
-    private List<IShape> selectList;
+    private List<Ithing> allList;
+    private List<Ithing> selectList;
 
 
-    public DeleteCommand(ShapeStore store, PaintCanvasBase paintCanvas, Graphics2D g, List<IShape> selectList) {
+    public DeleteCommand(ShapeStore store, PaintCanvasBase paintCanvas, Graphics2D g, List<Ithing> selectList) {
 
         this.store = store;
         this.paintCanvas = paintCanvas;
@@ -37,7 +38,7 @@ public class DeleteCommand implements ICommand, IUndoable {
             return;
         }
 
-        for (IShape s : selectList) {
+        for (Ithing s : selectList) {
             allList.remove(s);
         }
 
@@ -49,7 +50,7 @@ public class DeleteCommand implements ICommand, IUndoable {
     @Override
     public void undo() {
 
-        for (IShape s : selectList) {
+        for (Ithing s : selectList) {
             allList.add(s);
         }
 
@@ -71,7 +72,7 @@ public class DeleteCommand implements ICommand, IUndoable {
         if (allList.size() == 0) {
             return;
         }
-        for (IShape s : selectList) {
+        for (Ithing s : selectList) {
             allList.remove(s);
         }
 
