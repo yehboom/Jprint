@@ -5,15 +5,14 @@ import model.interfaces.IStrategy;
 
 import java.awt.*;
 
-public abstract class RectanleDrawDecorator implements IStrategy {
+public abstract class RectangleDrawDecorator implements IStrategy {
 
     private IShape shape;
 
     private Point startPoint;
 
 
-
-    public RectanleDrawDecorator(IShape shape) {
+    public RectangleDrawDecorator(IShape shape) {
         this.shape = shape;
     }
 

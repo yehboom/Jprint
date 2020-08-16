@@ -8,6 +8,7 @@ import view.interfaces.ICommand;
 import view.interfaces.PaintCanvasBase;
 
 import java.awt.*;
+import java.security.cert.PolicyNode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,41 +53,68 @@ public class PasteCommand implements ICommand, IUndoable {
             return;
         }
 
+        System.out.println("Copy List size" + copyList.size());
         ShapeFactory shapeFactory = new ShapeFactory();
 
         for (Ithing i : copyList) {
-
-
             Point pointStart = ((IShape) i).getStartPoint();
             Point pointEnd = ((IShape) i).getEndPoint();
             String type = i.toString();
             ((IShape) i).setCopyCount();
 
-
-            if (type.equals("Triangle")) {
-                newShape = shapeFactory.createTriangle();
-            } else if (type.equals("Ellipse")) {
-                newShape = shapeFactory.createEllipse();
-            } else if (type.equals("Rectangle")) {
-                newShape = shapeFactory.createRectangle();
-            } else {
-                newShape = shapeFactory.createNullShape();
-            }
-
-
-            int offsetValue = ((IShape) i).getCopyCount();
+            int offsetValue = ((IShape) i).getCopyCount() + 50;
+            System.out.println("offsetValue" + offsetValue);
             Point newStart;
             Point newEnd;
+            int newHeight = ((IShape) i).getHeight();
+            int newWidth = ((IShape) i).getWidth();
+
+
+            if (i instanceof Group) {
+                List<Ithing> tempChildren = ((Group) i).getChildren();
+                List<Ithing> cloneChildren = new ArrayList<>();
+                for (Ithing temp : tempChildren) {
+                    cloneChildren.add(((IShape) temp).getClone());
+                }
+
+
+                Ithing newGroup = GroupFactory.createShapeGroup(cloneChildren, g);
+                newShape = (IShape) newGroup;
+                ((Group) i).setSelect(false);
+                newShape.setSelect(true);
+
+                for (Ithing s1 : cloneChildren) {
+                    Point tempStartPoint = ((IShape) s1).getStartPoint();
+                    Point tempEndPoint = ((IShape) s1).getEndPoint();
+
+                    newStart = new Point(tempStartPoint.getX() + offsetValue, tempStartPoint.getY() + offsetValue);
+                    newEnd = new Point(tempEndPoint.getX() + offsetValue, tempEndPoint.getY() + offsetValue);
+
+                    ((IShape) s1).setStartPoint(newStart);
+                    ((IShape) s1).setEndPoint(newEnd);
+                }
+
+
+            } else {
+                if (type.equals("Triangle")) {
+                    newShape = shapeFactory.createTriangle();
+                } else if (type.equals("Ellipse")) {
+                    newShape = shapeFactory.createEllipse();
+                } else if (type.equals("Rectangle")) {
+                    newShape = shapeFactory.createRectangle();
+                } else {
+                    newShape = shapeFactory.createNullShape();
+                }
+
+            }
 
 
             newStart = new Point(pointStart.getX() + offsetValue, pointStart.getY() + offsetValue);
             newEnd = new Point(pointEnd.getX() + offsetValue, pointEnd.getY() + offsetValue);
-
-            int newHeight = ((IShape) i).getHeight();
-            int newWidth = ((IShape) i).getWidth();
-
             newShape.setStartPoint(newStart);
             newShape.setEndPoint(newEnd);
+
+
             newShape.setHeight(newHeight);
             newShape.setWidth(newWidth);
 
@@ -95,8 +123,11 @@ public class PasteCommand implements ICommand, IUndoable {
             newShape.setShapeColorSecond(((IShape) i).getShapeColorSecond());
 
 
+
             store.addShape(newShape);
             pasteShapeList.add(newShape);
+            store.cleanSelectShapeList();
+            store.addSelectShape(newShape);
 
 
         }

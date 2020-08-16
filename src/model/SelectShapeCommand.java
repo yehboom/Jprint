@@ -62,13 +62,23 @@ public class SelectShapeCommand implements ICommand {
             r.setRect(startPoint.getX(), startPoint.getY(), width, height);
         }
 
+
         //for display the select
 //        graphics2d.setColor(Color.MAGENTA);
 //        graphics2d.draw(r);
 
+        System.out.println("shapeList size :" + shapeList.size());
 
         for (Ithing s1 : shapeList) {
             IShape s = (IShape) s1;
+
+
+            if (s1 instanceof Group) {
+                List<Ithing> tempChild = ((Group) s1).getChildren();
+                for (Ithing sub : tempChild) {
+                    ((IShape) sub).setSelect(false);
+                }
+            }
 
             s.setSelect(false);
 
@@ -84,6 +94,11 @@ public class SelectShapeCommand implements ICommand {
             }
 
 
+//            System.out.println("s1's Height :"+s.getHeight());
+//            System.out.println("s1's Height :"+s.getWidth());
+
+
+
             //click and drag select
             if (r.intersection(r2).height > 0 && r.intersection(r2).getWidth() > 0 ||
                     (startPoint.getX() < (r2.x + r2.width) && startPoint.getY() < (r2.y + r2.height) && startPoint.getX() > r2.x && startPoint.getY() > r2.y)) {
@@ -97,6 +112,7 @@ public class SelectShapeCommand implements ICommand {
             }
 
         }
+        System.out.println(store.getSelectShapeList().size());
         //set select list to appState and wait it for further movement
         appState.setSelectList(store.getSelectShapeList());
 

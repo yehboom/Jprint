@@ -4,7 +4,7 @@ import model.interfaces.IShape;
 
 import java.awt.*;
 
-public class RectangleOutlineDecorator extends RectanleDrawDecorator {
+public class RectangleOutlineDecorator extends RectangleDrawDecorator {
     private Point startPoint;
     private IShape shape;
     private Graphics2D g;

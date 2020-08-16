@@ -1,5 +1,6 @@
 package model;
 
+import model.factory.ShapeFactory;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
@@ -20,6 +21,8 @@ public class Ellipse implements IShape, IComponent, Ithing {
     private boolean reverse;
     private int copyCount = 0;
     private int shapeType;
+    private int moveX;
+    private int moveY;
 
 
 
@@ -83,6 +86,11 @@ public class Ellipse implements IShape, IComponent, Ithing {
         }
     }
 
+    public void setMovexMovey(int moveX, int moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
+    }
+
     public void deductCopyCount() {
         if (copyCount != 0) {
             this.copyCount -= 50;
@@ -138,6 +146,21 @@ public class Ellipse implements IShape, IComponent, Ithing {
 
     public int getShapeType() {
         return this.shapeType;
+    }
+
+    public IShape getClone() {
+        ShapeFactory shapeFactory = new ShapeFactory();
+        IShape newShape = shapeFactory.createEllipse();
+        newShape.setShapeType(shapeType);
+        newShape.setHeight(height);
+        newShape.setWidth(width);
+        newShape.setStartPoint(startPoint);
+        newShape.setEndPoint(endPoint);
+        newShape.setShapeShadingType(shapeShadingType);
+        newShape.setShapeColorSecond(shapeColorSecond);
+        newShape.setShapeColorPrimary(shapeColorPrimary);
+        return newShape;
+
     }
 
 

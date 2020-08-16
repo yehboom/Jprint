@@ -1,5 +1,6 @@
 package model;
 
+import model.factory.ShapeFactory;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
@@ -26,6 +27,13 @@ public class NullShape implements IShape {
     private StartAndEndPointMode activeStartAndEndPointMode;
     private IStrategy iStrategy;
     private ShapeShadingType shapeShadingType;
+    private int moveX;
+    private int moveY;
+
+    public void setMovexMovey(int moveX, int moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
+    }
 
     @Override
     public void setShapeType(int i) {
@@ -134,6 +142,13 @@ public class NullShape implements IShape {
     @Override
     public boolean getReverse() {
         return false;
+    }
+
+    @Override
+    public IShape getClone() {
+        ShapeFactory shapeFactory = new ShapeFactory();
+        return shapeFactory.createNullShape();
+
     }
 
     @Override

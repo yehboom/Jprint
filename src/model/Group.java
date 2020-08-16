@@ -8,6 +8,7 @@ import model.interfaces.Ithing;
 import view.interfaces.ICommand;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import static model.ShapeShadingType.*;
@@ -20,9 +21,12 @@ public class Group implements Ithing, ICommand, IShape {
     private boolean select;
     private boolean reverse;
     private boolean specialDirection;
-    private int copyCount;
+    private int copyCount = 0;
 
     private int shapeType;
+
+    private int moveX;
+    private int moveY;
 
 
     private ShapeColor shapeColorPrimary;
@@ -48,6 +52,7 @@ public class Group implements Ithing, ICommand, IShape {
     public Group(List<Ithing> children, Graphics2D g) {
         this.children = children;
         this.g = g;
+        this.select = true;
 
         int minX = Integer.MAX_VALUE;
         int minY = Integer.MAX_VALUE;
@@ -97,6 +102,7 @@ public class Group implements Ithing, ICommand, IShape {
 
     @Override
     public void setSelect(Boolean b) {
+        this.select = b;
 
     }
 
@@ -118,18 +124,35 @@ public class Group implements Ithing, ICommand, IShape {
 
     @Override
     public void setStartPoint(Point startPoint) {
-        this.startPoint = GroupStartPoint;
+        this.startPoint = startPoint;
+        System.out.println("moveX" + moveX);
 
-        for (Ithing s : children) {
-            ((IShape) s).setStartPoint(startPoint);
+        for (Ithing s1 : children) {
+
+            IShape s = (IShape) s1;
+
+            int tempStartPointX = s.getStartPoint().getX() + moveX;
+            int tempStartPointY = s.getStartPoint().getY() + moveY;
+
+            ((IShape) s).setStartPoint(new Point(tempStartPointX, tempStartPointY));
         }
+    }
+
+    public void setMovexMovey(int moveX, int moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
     }
 
     @Override
     public void setEndPoint(Point endPoint) {
-        this.endPoint = GroupEndPoint;
+        this.endPoint = endPoint;
 
-        for (Ithing s : children) {
+        for (Ithing s1 : children) {
+            IShape s = (IShape) s1;
+
+            int tempEndPointX = s.getEndPoint().getX() + moveX;
+            int tempEndPointY = s.getEndPoint().getY() + moveY;
+
             ((IShape) s).setEndPoint(endPoint);
         }
 
@@ -137,16 +160,18 @@ public class Group implements Ithing, ICommand, IShape {
 
     @Override
     public void setWidth(int width) {
-        for (Ithing s : children) {
-            ((IShape) s).setWidth(width);
-        }
+        this.width = width;
+//        for (Ithing s : children) {
+//            ((IShape) s).setWidth(width);
+//        }
     }
 
     @Override
     public void setHeight(int height) {
-        for (Ithing s : children) {
-            ((IShape) s).setHeight(height);
-        }
+//        for (Ithing s : children) {
+//            ((IShape) s).setHeight(height);
+//        }
+        this.height = height;
     }
 
     @Override
@@ -159,11 +184,27 @@ public class Group implements Ithing, ICommand, IShape {
     @Override
     public void setCopyCount() {
 
+        if (copyCount != 0) {
+            this.copyCount += 50;
+        } else {
+            copyCount++;
+        }
+
+
     }
 
     @Override
     public void deductCopyCount() {
+        if (copyCount != 0) {
+            this.copyCount -= 50;
+        } else {
+            copyCount--;
+        }
 
+    }
+
+    public List<Ithing> getChildren() {
+        return this.children;
     }
 
     @Override
@@ -203,12 +244,12 @@ public class Group implements Ithing, ICommand, IShape {
 
     @Override
     public boolean getSelect() {
-        return false;
+        return select;
     }
 
     @Override
     public int getCopyCount() {
-        return 0;
+        return this.copyCount;
     }
 
     @Override
@@ -224,16 +265,23 @@ public class Group implements Ithing, ICommand, IShape {
     @Override
     public void update(IObserver observer, Graphics2D g) {
 
-
-//        draw(g);
         for (Ithing s : children) {
-            System.out.println("update!!!!!!!!!!!!!!!!!");
+            //System.out.println("update!!!!!!!!!!!!!!!!!");
             ((IShape) s).update((IShape) s, g);
         }
+        draw(g);
 
     }
 
+    @Override
+    public IShape getClone() {
+
+        ShapeFactory shapeFactory = new ShapeFactory();
+        return shapeFactory.createNullShape();
+    }
+
     public void draw(Graphics2D g) {
+
         g.setColor(Color.MAGENTA);
 
         ShapeFactory shapeFactory = new ShapeFactory();
@@ -243,6 +291,12 @@ public class Group implements Ithing, ICommand, IShape {
         newShape.setEndPoint(endPoint);
         newShape.setShapeColorPrimary(ShapeColor.YELLOW);
 
+        System.out.println("Select? :" + getSelect());
+
+        if (getSelect()) {
+            g.setStroke(new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0));
+            g.drawRect(startPoint.getX() - 5, startPoint.getY() - 5, width + 10, height + 10);
+        }
 
         int width;
         int height;

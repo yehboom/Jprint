@@ -19,6 +19,10 @@ public interface IShape extends IObserver {
 
     void setShapeType(int i);
 
+    void setMovexMovey(int movex, int movey);
+
+    IShape getClone();
+
 
     void setCopyCount();
 

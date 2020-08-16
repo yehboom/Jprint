@@ -4,14 +4,18 @@ package model;
 import model.Point;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
+import model.interfaces.Ithing;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static model.ShapeShadingType.*;
 
 public class RectangleStrategy implements IStrategy {
 
     private IShape shape;
+
 
 
     public RectangleStrategy(IShape shape) {
@@ -22,8 +26,9 @@ public class RectangleStrategy implements IStrategy {
     @Override
     public void draw(Graphics2D g) {
         g.setColor(shape.getShapeColorPrimary().getAwtColor());
-        IStrategy rectangleDraw;
 
+
+        IStrategy rectangleDraw;
         if(shape.getShapeShadingType().compareTo(FILLED_IN)==0){
             // System.out.println("FILLED_IN");
             rectangleDraw = new RectangleFillInDecorator(shape);
@@ -37,7 +42,11 @@ public class RectangleStrategy implements IStrategy {
             rectangleDraw = NullDrawDecorator.getInstance();
         }
         rectangleDraw.draw(g);
+
+
     }
 
 
 }
+
+

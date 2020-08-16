@@ -4,7 +4,7 @@ import model.interfaces.IShape;
 
 import java.awt.*;
 
-public class RectangleFillInDecorator extends RectanleDrawDecorator {
+public class RectangleFillInDecorator extends RectangleDrawDecorator {
     private Point startPoint;
     private IShape shape;
 

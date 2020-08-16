@@ -1,5 +1,6 @@
 package model;
 
+import model.factory.ShapeFactory;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
@@ -18,6 +19,8 @@ public class Rectangle implements IShape, IComponent, Ithing {
     private int copyCount;
 
     private int shapeType;
+    private int moveX;
+    private int moveY;
 
 
     private ShapeColor shapeColorPrimary;
@@ -41,7 +44,10 @@ public class Rectangle implements IShape, IComponent, Ithing {
         this.reverse = b;
     }
 
-
+    public void setMovexMovey(int moveX, int moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
+    }
     public void setSelect(Boolean b) {
         this.select = b;
     }
@@ -135,6 +141,22 @@ public class Rectangle implements IShape, IComponent, Ithing {
 
     }
 
+    public IShape getClone() {
+        ShapeFactory shapeFactory = new ShapeFactory();
+        IShape newShape = shapeFactory.createRectangle();
+        newShape.setShapeType(shapeType);
+        newShape.setHeight(height);
+        newShape.setWidth(width);
+        newShape.setStartPoint(startPoint);
+        newShape.setEndPoint(endPoint);
+        newShape.setShapeShadingType(shapeShadingType);
+        newShape.setShapeColorSecond(shapeColorSecond);
+        newShape.setShapeColorPrimary(shapeColorPrimary);
+        return newShape;
+
+    }
+
+
     public int getShapeType() {
         return this.shapeType;
     }
@@ -147,7 +169,7 @@ public class Rectangle implements IShape, IComponent, Ithing {
 
     @Override
     public void update(IObserver observer, Graphics2D g) {
-        System.out.println("update in rectangle");
+        //System.out.println("update in rectangle");
         IStrategy strategy = new RectangleStrategy((IShape) observer);
         strategy.draw(g);
     }

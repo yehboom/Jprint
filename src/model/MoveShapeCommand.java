@@ -97,7 +97,8 @@ public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
         int moveX = endPoint.getX() - startPoint.getX();
         int moveY = endPoint.getY() - startPoint.getY();
 
-        System.out.println("move list's shapelist size!!!!!:" + store.getShapeList().size());
+
+        //System.out.println("move list's shapelist size!!!!!:" + store.getShapeList().size());
         for (Ithing s1 : store.getShapeList()) {
             registerObserver((IShape) s1);
         }
@@ -106,6 +107,7 @@ public class MoveShapeCommand implements ICommand, ISubject, IUndoable {
         for (Ithing s : selectShapelist) {
             Point tempStartPoint = ((IShape) s).getStartPoint();
             Point tempEndPoint = ((IShape) s).getEndPoint();
+            ((IShape) s).setMovexMovey(moveX, moveY);
 
             int tempStartPointX = tempStartPoint.getX() + moveX;
             int tempStartPointY = tempStartPoint.getY() + moveY;

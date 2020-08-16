@@ -67,9 +67,10 @@ public class ApplicationState implements IApplicationState, Serializable {
 
         GroupCommand newGroupCommand = new GroupCommand(selectList, store, g);
         newGroupCommand.run();
+        List<Ithing> allList = store.getShapeList();
 
-
-        System.out.println("GroupCommand size" + newGroupCommand.getSize());
+        print(allList);
+//        System.out.println("GroupCommand size" + newGroupCommand.getSize());
     }
 
     @Override
@@ -86,8 +87,9 @@ public class ApplicationState implements IApplicationState, Serializable {
 
     @Override
     public void setCopy() {
-        System.out.println("copy");
+
         copyList = this.selectList;
+        System.out.println("copy" + copyList.size());
 
     }
 

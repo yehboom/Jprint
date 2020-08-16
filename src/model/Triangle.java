@@ -1,5 +1,6 @@
 package model;
 
+import model.factory.ShapeFactory;
 import model.interfaces.IObserver;
 import model.interfaces.IShape;
 import model.interfaces.IStrategy;
@@ -16,6 +17,8 @@ public class Triangle implements IShape, IComponent, Ithing {
     private boolean reverse;
     private int copyCount;
     private int shapeType;
+    private int moveX;
+    private int moveY;
 
 
     private ShapeColor shapeColorPrimary;
@@ -46,6 +49,10 @@ public class Triangle implements IShape, IComponent, Ithing {
         this.reverse = b;
     }
 
+    public void setMovexMovey(int moveX, int moveY) {
+        this.moveX = moveX;
+        this.moveY = moveY;
+    }
 
     public void setShapeShadingType(ShapeShadingType shapeShadingType){
         this.shapeShadingType=shapeShadingType;
@@ -135,6 +142,21 @@ public class Triangle implements IShape, IComponent, Ithing {
         } else {
             copyCount--;
         }
+
+    }
+
+    public IShape getClone() {
+        ShapeFactory shapeFactory = new ShapeFactory();
+        IShape newShape = shapeFactory.createTriangle();
+        newShape.setShapeType(shapeType);
+        newShape.setHeight(height);
+        newShape.setWidth(width);
+        newShape.setStartPoint(startPoint);
+        newShape.setEndPoint(endPoint);
+        newShape.setShapeShadingType(shapeShadingType);
+        newShape.setShapeColorSecond(shapeColorSecond);
+        newShape.setShapeColorPrimary(shapeColorPrimary);
+        return newShape;
 
     }
 
